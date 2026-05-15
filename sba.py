@@ -13,8 +13,8 @@ API_KEYS = [
     "AIzaSyAwVv2Pctzr39wz8gkHth7qS5FqKYAWNW0"                   # Key 3
 ]
 current_key_idx = 0
-OUTPUT_FILE = "/home/jiclawdbot/Yeen/question_bank.json"
-MINERVA_FILE = "/home/jiclawdbot/Yeen/exemplars.md"
+OUTPUT_FILE = "./question_bank.json"
+MINERVA_FILE = "./exemplars.md"
 SYLLABUS = """
 Introduction to Medicine and Medical Science (IMMS).
 Genetics: 
