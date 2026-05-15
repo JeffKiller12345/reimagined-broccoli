@@ -1229,6 +1229,7 @@ SYLLABUS OBJECTIVES TO TEST:
 
 Requirements:
 - Ensure the questions test UNDERLYING NORMAL PHYSIOLOGY or ANATOMY, even when using a clinical stem.
+- Ensure the feedback explains WHY the correct answer is correct and WHY the distractors are incorrect, with reference to normal physiology or anatomy.
 - For GP-specific objectives, focus on the social, professional, or primary care principles mentioned in the bullets.
 - Vary the physiological systems or anatomical regions based on the objectives.
 - The "topic" field must be exactly: "{topic}"

@@ -398,5 +398,389 @@
     "feedback": "Parietal cells (also known as oxyntic cells) are located in the gastric glands of the fundus and body of the stomach and are responsible for the secretion of hydrochloric acid (HCl) via the H+/K+ ATPase pump. Chief cells secrete pepsinogen, G cells secrete gastrin, ECL cells secrete histamine, and mucous neck cells secrete alkaline mucus.",
     "generated_at": "2026-05-15T11:56:01.597796",
     "id": "44373228"
+  },
+  {
+    "topic": "Gastrointestinal tract and liver (GI-L).",
+    "subtopic": "Physiological features of the liver, gallbladder and pancreas:",
+    "question": "A 45-year-old woman consumes a meal high in fat. Shortly after ingestion, the presence of fatty acids and amino acids in the duodenum triggers the release of cholecystokinin (CCK) from the enteroendocrine cells of the small intestine. Which of the following physiological processes is primarily stimulated by this hormone?",
+    "options": {
+      "A": "Contraction of the gallbladder",
+      "B": "Inhibition of pancreatic lipase secretion",
+      "C": "Secretion of bicarbonate-rich fluid by pancreatic duct cells",
+      "D": "Stimulation of gastric acid secretion",
+      "E": "Stimulation of hepatic glucose production"
+    },
+    "correct_answer": "A",
+    "feedback": "A is correct because Cholecystokinin (CCK) is released by I-cells in the duodenum and jejunum in response to fatty acids and amino acids. Its primary physiological roles include stimulating gallbladder contraction and relaxation of the sphincter of Oddi to release bile. B is incorrect as CCK stimulates, rather than inhibits, the secretion of pancreatic enzymes. C is incorrect as bicarbonate-rich fluid secretion is primarily stimulated by secretin. D is incorrect as CCK inhibits gastric emptying and acid secretion. E is incorrect as hepatic glucose production is regulated by glucagon and catecholamines.",
+    "generated_at": "2026-05-15T12:38:52.196633",
+    "id": "15210628"
+  },
+  {
+    "topic": "Gastrointestinal tract and liver (GI-L).",
+    "subtopic": "Embryonic development of the gastrointestinal tract and liver:",
+    "question": "A 3-year-old child is undergoing investigation for recurrent abdominal discomfort, with concerns centring around the small intestine. Which of the following accurately describes the embryonic origin and primary arterial supply of the jejunum?",
+    "options": {
+      "A": "Foregut; celiac artery",
+      "B": "Foregut; superior mesenteric artery",
+      "C": "Midgut; celiac artery",
+      "D": "Midgut; superior mesenteric artery",
+      "E": "Hindgut; inferior mesenteric artery"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:39:57.881095",
+    "id": "18927150"
+  },
+  {
+    "topic": "Gastrointestinal tract and liver (GI-L).",
+    "subtopic": "Histology of the gastrointestinal tract and liver:",
+    "question": "A 30-year-old male undergoes a gastroscopy, and biopsies are taken from the fundus of his stomach. Histological examination reveals the presence of specialized cells responsible for secreting intrinsic factor, a glycoprotein essential for vitamin B12 absorption. Which of the following cell types is being described?",
+    "options": {
+      "A": "Chief cells",
+      "B": "Mucous neck cells",
+      "C": "G cells",
+      "D": "Parietal cells",
+      "E": "Goblet cells"
+    },
+    "correct_answer": "D",
+    "feedback": "Parietal cells (also known as oxyntic cells) are characteristic cells found in the gastric glands, particularly in the fundus and body of the stomach. They are responsible for secreting both hydrochloric acid and intrinsic factor. Intrinsic factor is crucial for the absorption of vitamin B12 in the terminal ileum. Chief cells secrete pepsinogen. Mucous neck cells secrete mucus. G cells secrete gastrin and are primarily found in the pyloric antrum. Goblet cells are predominantly found in the small and large intestines, secreting mucus.",
+    "generated_at": "2026-05-15T12:41:03.677651",
+    "id": "77594459"
+  },
+  {
+    "topic": "Gastrointestinal tract and liver (GI-L).",
+    "subtopic": "Anatomical features of the gastrointestinal tract and liver, and abdomen:",
+    "question": "A 68-year-old man presents with a bulge in his groin that is more prominent when he coughs. This clinical presentation is consistent with an inguinal hernia, which involves the passage of abdominal contents through the inguinal canal. Understanding the normal anatomical boundaries of this canal is crucial. Which of the following structures primarily forms the anterior wall of the inguinal canal?",
+    "options": {
+      "A": "Aponeurosis of the external oblique muscle",
+      "B": "Internal oblique muscle",
+      "C": "Transversus abdominis muscle",
+      "D": "Rectus abdominis muscle",
+      "E": "Inguinal ligament"
+    },
+    "correct_answer": "A",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:42:08.768098",
+    "id": "03965354"
+  },
+  {
+    "topic": "Gastrointestinal tract and liver (GI-L).",
+    "subtopic": "ILA 5 - Gastritis and Appendicitis",
+    "question": "A 45-year-old patient presents with recurring epigastric pain and heartburn. The physician explains that the stomach produces a highly acidic environment essential for digestion. Which of the following cell types in the gastric glands is primarily responsible for the secretion of hydrochloric acid?",
+    "options": {
+      "A": "Chief cells",
+      "B": "G cells",
+      "C": "Parietal cells",
+      "D": "Mucous neck cells",
+      "E": "D cells"
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:43:15.358260",
+    "id": "47657009"
+  },
+  {
+    "topic": "Neuroscience.",
+    "subtopic": "Neuroanatomy",
+    "question": "A 30-year-old patient presents with progressive difficulty seeing objects on the outer sides of their visual fields. On examination, a bitemporal hemianopia is diagnosed. Damage to which of the following anatomical structures is most consistent with this finding?",
+    "options": {
+      "A": "Left optic nerve",
+      "B": "Right optic tract",
+      "C": "Optic chiasm",
+      "D": "Left primary visual cortex",
+      "E": "Right lateral geniculate nucleus"
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:44:19.965405",
+    "id": "68083838"
+  },
+  {
+    "topic": "Neuroscience.",
+    "subtopic": "Neurophysiology",
+    "question": "A 28-year-old woman presents with sudden onset of blurred vision and weakness in her left leg. Her symptoms are highly suggestive of an acute demyelinating event. In healthy individuals, what is the primary physiological benefit of myelin around axons for nerve impulse conduction?",
+    "options": {
+      "A": "It ensures action potentials are always inhibitory.",
+      "B": "It allows for continuous propagation of the action potential along the entire axon membrane.",
+      "C": "It increases the speed of action potential conduction and conserves energy for the neuron.",
+      "D": "It directly produces neurotransmitters to enhance synaptic transmission.",
+      "E": "It provides structural support to the neuronal cell body, preventing mechanical damage."
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:45:24.502081",
+    "id": "03939383"
+  },
+  {
+    "topic": "Neuroscience.",
+    "subtopic": "Psychiatry and psychological & sociological principles in behavioural neuroscience",
+    "question": "A 30-year-old individual is walking alone at night through a dimly lit park. They hear a faint rustling sound in the bushes and immediately interpret it as an approaching animal, causing a sudden increase in their heart rate. If the exact same sound were heard in a busy coffee shop during the day, it would likely be ignored or attributed to a mundane source like air conditioning. This phenomenon, where context, expectations, and prior experience influence the interpretation of sensory information, is best described by which of the following normal perceptual processes?",
+    "options": {
+      "A": "Sensory transduction",
+      "B": "Bottom-up processing",
+      "C": "Perceptual adaptation",
+      "D": "Top-down processing",
+      "E": "Sensory gating"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:46:33.874544",
+    "id": "54308776"
+  },
+  {
+    "topic": "Neuroscience.",
+    "subtopic": "Neurohistology",
+    "question": "A 68-year-old patient presents with new onset muscle weakness and fatigue, particularly after repetitive movements. Understanding the normal physiology of muscle contraction is essential. Which of the following histological features is characteristic of the postsynaptic membrane at a normal neuromuscular junction?",
+    "options": {
+      "A": "Extensive myelination by oligodendrocytes",
+      "B": "High concentration of voltage-gated potassium channels",
+      "C": "Numerous deep junctional folds rich in acetylcholine receptors",
+      "D": "Presynaptic terminals releasing dopamine",
+      "E": "Absence of a basement membrane"
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:47:40.484304",
+    "id": "13246110"
+  },
+  {
+    "topic": "Neuroscience.",
+    "subtopic": "ILA 6 - Stroke",
+    "question": "A 68-year-old man presents with sudden onset weakness on the right side of his body and difficulty speaking. A stroke is suspected, and imaging suggests an infarction in the territory supplied by the left middle cerebral artery. Which primary lobe of the cerebral cortex is responsible for initiating voluntary movement of the contralateral limbs?",
+    "options": {
+      "A": "Frontal lobe",
+      "B": "Parietal lobe",
+      "C": "Temporal lobe",
+      "D": "Occipital lobe",
+      "E": "Insular lobe"
+    },
+    "correct_answer": "A",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:48:46.132713",
+    "id": "84795704"
+  },
+  {
+    "topic": "Neuroscience",
+    "subtopic": "ILA 7 - Vestibular Schwannoma",
+    "question": "A 60-year-old patient presents with a history of progressive unilateral hearing loss and occasional dizziness, suggestive of potential cranial nerve impairment. In normally functioning myelinated axons, which of the following mechanisms primarily contributes to the rapid and efficient transmission of nerve impulses?",
+    "options": {
+      "A": "Continuous depolarisation along the entire axonal membrane",
+      "B": "Active transport of neurotransmitters across the synaptic cleft",
+      "C": "Reduction in the number of voltage-gated ion channels along the internodal segments",
+      "D": "Saltatory conduction, where action potentials 'jump' between adjacent nodes of Ranvier",
+      "E": "Enhanced diffusion of ions across the myelin sheath"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:49:57.965045",
+    "id": "43854305"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Physiological features of the renal and urinary system:",
+    "question": "A 28-year-old healthy individual is undergoing a routine physiological assessment. Which of the following pressures is the main determinant promoting the filtration of fluid from the glomerular capillaries into Bowman's capsule under normal physiological conditions?",
+    "options": {
+      "A": "Hydrostatic pressure in Bowman's capsule",
+      "B": "Oncotic pressure within the glomerular capillaries",
+      "C": "Hydrostatic pressure within the glomerular capillaries",
+      "D": "Oncotic pressure within Bowman's capsule",
+      "E": "Systemic arterial blood pressure"
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:51:03.931521",
+    "id": "24474010"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Physiological features of the reproductive system:",
+    "question": "A 28-year-old woman is discussing fertility with her general practitioner. She is curious about the normal process of ovulation and the state of the egg at that time. Which of the following best describes the stage of meiosis of the oocyte when it is typically released from the ovary during ovulation?",
+    "options": {
+      "A": "Primary oocyte arrested in prophase I",
+      "B": "Primary oocyte arrested in metaphase II",
+      "C": "Secondary oocyte arrested in metaphase II",
+      "D": "Secondary oocyte arrested in prophase I",
+      "E": "Mature ovum (has completed meiosis II)"
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:52:08.337521",
+    "id": "67932213"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Physiological features of the endocrine system:",
+    "question": "A healthy 22-year-old man consumes a large meal rich in carbohydrates. Several minutes later, his blood glucose levels begin to rise significantly. Which of the following is the primary physiological mechanism that directly stimulates insulin secretion in response to this change?",
+    "options": {
+      "A": "Glucagon release from pancreatic alpha cells.",
+      "B": "Activation of parasympathetic nerves innervating the pancreas.",
+      "C": "Increased ATP production within pancreatic beta-cells leading to closure of ATP-sensitive potassium channels.",
+      "D": "Release of somatostatin from pancreatic delta cells.",
+      "E": "Activation of alpha-adrenergic receptors on pancreatic beta-cells."
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:53:13.394725",
+    "id": "61662867"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Physiological features of the skin:",
+    "question": "A 70-year-old patient with osteoporosis is advised by her GP to increase her outdoor activity to help support bone health, particularly regarding vitamin D levels. Which specific layer of the epidermis is primarily responsible for the initial synthesis of Vitamin D when exposed to ultraviolet (UV) radiation?",
+    "options": {
+      "A": "Stratum Corneum",
+      "B": "Stratum Granulosum",
+      "C": "Stratum Spinosum",
+      "D": "Stratum Lucidum",
+      "E": "Stratum Basale"
+    },
+    "correct_answer": "E",
+    "feedback": "The initial step of Vitamin D synthesis occurs in the Stratum Basale (also known as Stratum Germinativum) and Stratum Spinosum, where 7-dehydrocholesterol is converted to cholecalciferol by UV light. However, the Stratum Basale, being the deepest epidermal layer with metabolically active cells, is primarily associated with this initial conversion. The Stratum Corneum, Granulosum, and Lucidum are involved in barrier function and keratinisation, not initial vitamin D synthesis.",
+    "generated_at": "2026-05-15T12:54:18.674149",
+    "id": "53556371"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Embryonic development of the urogenital and reproductive organs:",
+    "question": "A 46,XY foetus is undergoing normal embryonic development of its reproductive system. Which embryonic structure is directly responsible for forming the epididymis and vas deferens in this individual?",
+    "options": {
+      "A": "Genital tubercle",
+      "B": "Paramesonephric (M\u00fcllerian) duct",
+      "C": "Urogenital sinus",
+      "D": "Mesonephric (Wolffian) duct",
+      "E": "Primordial germ cells"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T12:56:25.097963",
+    "id": "76638505"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Histology of SUGER, with a focus on:",
+    "question": "A researcher is examining endometrial biopsies taken from a healthy 28-year-old woman at different stages of her normal menstrual cycle. Which of the following histological features would be most prominent in a biopsy obtained during the late secretory phase?",
+    "options": {
+      "A": "Straight, narrow endometrial glands with minimal glycogen.",
+      "B": "Pseudostratified ciliated columnar epithelium lining the lumen.",
+      "C": "Highly tortuous, saw-toothed endometrial glands containing abundant glycogen.",
+      "D": "Prominent decidualization of the stromal cells.",
+      "E": "Extensive infiltration by neutrophils and macrophages."
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:00:03.404090",
+    "id": "26037132"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "Anatomical features of the urogenital and pelvic organs:",
+    "question": "A 25-year-old male presents to his GP with a reducible swelling in his right groin, which is diagnosed as an indirect inguinal hernia. This type of hernia travels along the course of the inguinal canal. Which of the following structures is a normal constituent of the male inguinal canal?",
+    "options": {
+      "A": "Femoral artery",
+      "B": "Obturator nerve",
+      "C": "Round ligament of the uterus",
+      "D": "Spermatic cord",
+      "E": "External iliac vein"
+    },
+    "correct_answer": "D",
+    "feedback": "The spermatic cord is a primary content of the male inguinal canal. The femoral artery and external iliac vein are located inferior to the inguinal ligament, not within the canal itself. The obturator nerve is located in the obturator foramen. The round ligament of the uterus is a content of the female inguinal canal.",
+    "generated_at": "2026-05-15T13:02:10.175414",
+    "id": "33381984"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "ILA 8 - Dehydration and Acute Kidney Injury",
+    "question": "A 28-year-old marathon runner collapses at the finish line due to severe dehydration. His blood osmolality is significantly elevated (reference range: 275-295 mOsm/kg). Which of the following is the most direct and primary physiological response aimed at conserving body water in this situation?",
+    "options": {
+      "A": "Increased secretion of atrial natriuretic peptide (ANP)",
+      "B": "Decreased release of antidiuretic hormone (ADH) from the posterior pituitary",
+      "C": "Enhanced sodium reabsorption in the proximal convoluted tubule",
+      "D": "Increased permeability of the collecting ducts to water",
+      "E": "Activation of the renin-angiotensin-aldosterone system (RAAS) to promote sodium retention"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:03:18.256959",
+    "id": "38284216"
+  },
+  {
+    "topic": "Skin, UroGenital, Endocrine and Reproduction (SUGER).",
+    "subtopic": "ILA 9 - Subfertility",
+    "question": "A 30-year-old woman is being investigated for primary subfertility. Her menstrual cycles are regular, and hormonal assays are performed throughout her cycle to pinpoint the timing of ovulation. Which of the following hormonal events directly triggers ovulation?",
+    "options": {
+      "A": "Peak progesterone levels",
+      "B": "Declining oestrogen levels",
+      "C": "Sustained low Follicle-Stimulating Hormone (FSH) levels",
+      "D": "Luteinising Hormone (LH) surge",
+      "E": "Gonadotrophin-releasing hormone (GnRH) suppression"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:05:26.045958",
+    "id": "46014017"
+  },
+  {
+    "topic": "Musculoskeletal (MSK).",
+    "subtopic": "Intro",
+    "question": "An 80-year-old woman presents to her GP complaining of increasing difficulty with activities of daily living, such as dressing and walking, due to chronic joint pain and stiffness. This common presentation highlights the significant impact of musculoskeletal conditions on quality of life. Which of the following is a primary normal physiological function of synovial joints in the human body?",
+    "options": {
+      "A": "Facilitating rigid fusion of adjacent bones",
+      "B": "Storing metabolic energy reserves",
+      "C": "Producing red blood cells for oxygen transport",
+      "D": "Allowing a wide range of motion between bones",
+      "E": "Regulating body temperature through heat production"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:07:34.472983",
+    "id": "41106592"
+  },
+  {
+    "topic": "Musculoskeletal (MSK).",
+    "subtopic": "Bone",
+    "question": "A 20-year-old athlete regularly engages in weight-bearing exercises to maintain strong bones. Which cell type is primarily responsible for synthesising the organic components of the bone matrix?",
+    "options": {
+      "A": "Osteoclast",
+      "B": "Chondroblast",
+      "C": "Osteocyte",
+      "D": "Osteoblast",
+      "E": "Fibroblast"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:08:39.069113",
+    "id": "61579086"
+  },
+  {
+    "topic": "Musculoskeletal (MSK).",
+    "subtopic": "Joints",
+    "question": "A 25-year-old ballet dancer reports recurrent minor discomfort in her hip joint after intense training. Her physiotherapist explains the normal structure and function of such a joint to help her understand the mechanism of movement. Which of the following is a characteristic feature of a healthy hip joint?",
+    "options": {
+      "A": "Articulating bones are directly fused, allowing no movement.",
+      "B": "A cartilaginous disc firmly binds the articulating bones together.",
+      "C": "A fluid-filled capsule encloses the joint, lined by a membrane secreting lubricating fluid.",
+      "D": "Strong fibrous ligaments directly connect the bone ends, with no joint cavity.",
+      "E": "The joint primarily permits only gliding movements between flat surfaces."
+    },
+    "correct_answer": "C",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:09:44.883347",
+    "id": "65258104"
+  },
+  {
+    "topic": "Musculoskeletal (MSK).",
+    "subtopic": "Muscle",
+    "question": "A 25-year-old man performing strenuous exercise experiences muscle fatigue. To initiate contraction in his skeletal muscles, a precise sequence of events involving ion movement is required. Which of the following structures is primarily responsible for storing and releasing calcium ions within a skeletal muscle cell to trigger contraction?",
+    "options": {
+      "A": "Sarcoplasm",
+      "B": "Transverse tubules (T-tubules)",
+      "C": "Myofibril",
+      "D": "Sarcoplasmic reticulum",
+      "E": "Sarcolemma"
+    },
+    "correct_answer": "D",
+    "feedback": "",
+    "generated_at": "2026-05-15T13:10:48.965262",
+    "id": "60970001"
   }
 ]
