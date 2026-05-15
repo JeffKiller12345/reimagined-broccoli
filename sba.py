@@ -8,9 +8,9 @@ from difflib import get_close_matches
 import random
 
 API_KEYS = [
-    "AIzaSyCNDTDCSHbo0qE59rFpcINv-hhfVG99D_0", # Key 1
-    "AIzaSyC7yCdiXkpfUO3EQso534b8GK2QA-smrWM",                  # Key 2
-    "AIzaSyAwVv2Pctzr39wz8gkHth7qS5FqKYAWNW0"                   # Key 3
+    "AIzaSyB9j1BneYJfGdmJfiIgk80djU87fFEcGKw", # Key 1
+    "AIzaSyBBq2fa5R36LjCZN_TyMBHhRPHDdSD272Q",                  # Key 2
+    "AIzaSyCuN5jhGL33ia48v1t6VWeKCmutzHIF1gI"                   # Key 3
 ]
 current_key_idx = 0
 OUTPUT_FILE = "./question_bank.json"
