@@ -12,6 +12,8 @@ API_KEYS = [
     os.getenv("GEMINI_API_KEY_2"),
     os.getenv("GEMINI_API_KEY_3")                  # Key 3
 ]
+WORKSPACE_DIR = "/workspaces/reimagined-broccoli"
+OUTPUT_FILE_ABS = os.path.join(WORKSPACE_DIR, "question_bank.json")
 current_key_idx = 0
 OUTPUT_FILE = "./question_bank.json"
 MINERVA_FILE = "./exemplars.md"
