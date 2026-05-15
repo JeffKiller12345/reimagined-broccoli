@@ -1267,6 +1267,14 @@ def _next_card_id(bank: list) -> int:
     return max_id + 1
 
 
+def _random_digit_id(existing_ids: set, length: int = 8) -> str:
+    """Return a unique random string of digits."""
+    while True:
+        candidate = ''.join(random.choice('0123456789') for _ in range(length))
+        if candidate not in existing_ids:
+            return candidate
+
+
 # ── Column order to match your Supabase table ───────────────────────────────────────
 CSV_COLUMNS = [
     "id",
@@ -1303,8 +1311,7 @@ def save_bank(filepath: str, bank: list):
     Save the question bank with four automatic steps:
 
     1. FILTER     – removes any entry whose 'question' field does not end with '?'
-    2. ID STAMP   – assigns a unique card ID to every entry that lacks one,
-                    resuming from the highest existing ID (or card_0001 if fresh).
+    2. ID STAMP   – assigns a unique random digit string to every entry that lacks one.
     3. JSON SAVE  – writes the cleaned bank back to the JSON file.
     4. CSV EXPORT – writes a Supabase-ready CSV alongside the JSON file
                     with the same base name (e.g. question_bank.csv).
@@ -1320,15 +1327,19 @@ def save_bank(filepath: str, bank: list):
         print(f"  [filter] Removed {removed} non-question item(s) before saving.")
 
     # ── Step 2: assign IDs to any entry that lacks one ─────────────────
-    next_id = _next_card_id(bank)
+    existing_ids = {
+        str(item.get("id"))
+        for item in bank
+        if item.get("id") is not None
+    }
     stamped = 0
     for item in bank:
         if not item.get("id"):
-            item["id"] = f"card_{next_id:04d}"
-            next_id += 1
+            item["id"] = _random_digit_id(existing_ids)
+            existing_ids.add(item["id"])
             stamped += 1
     if stamped:
-        print(f"  [ids]    Stamped {stamped} new card ID(s). Next available: card_{next_id:04d}.")
+        print(f"  [ids]    Stamped {stamped} new random digit ID(s).")
 
     # ── Step 3: write JSON to disk ──────────────────────────────────────
     with open(filepath, "w") as f:
