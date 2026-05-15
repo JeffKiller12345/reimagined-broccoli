@@ -21,8 +21,8 @@ current_key_idx = 0
 OUTPUT_FILE = OUTPUT_FILE_ABS
 MINERVA_FILE = "./exemplars.md"
 SYLLABUS = """
-Introduction to Medicine and Medical Science (IMMS).
-Genetics: 
+A. Introduction to Medicine and Medical Science (IMMS)
+Genetics
 ● DNA structure, function, packaging and replication 
 ● DNA transcription and translation 
 ● Purpose and stages of mitosis (and their microscopic appearance) 
@@ -49,7 +49,7 @@ Genetics:
 ● DNA mutations (single nucleotide variants, copy number variants, loss of function variants and how they cause disease) 
 ● Genetic testing 
 ● Controversies surrounding genetic testing 
-Cell biology: 
+Cell biology
 ● Cell cycle 
 ● Molecular building blocks - sugars, nucleotides, amino acids, lipids 
 ● Protein structure (primary, secondary, tertiary, quaternary) 
@@ -65,7 +65,7 @@ Cell biology:
 ● Simple feedback loops (positive and negative feedback) 
 ● Overview of the endocrine system 
 ● Peptide and steroid hormones 
-Energy metabolism / Biochemistry: 
+Energy metabolism / Biochemistry
 ● Basal metabolic rate - definition, calculation and factors affecting it 
 ● Dietary energy sources 
 ● Energy storage and excess 
@@ -82,7 +82,7 @@ Energy metabolism / Biochemistry:
 ● Oncotic and hydrostatic pressure 
 ● Formation of effusions and oedema 
 ● Sodium homeostasis 
-Embryo development from fertilisation to week 9: 
+Embryo development from fertilisation to week 9
 ● Embryo development from fertilisation to week 4 
 ○ Blastocyst differentiation into embryoblast and trophoblast 
 ○ Development of the bilaminar and trilaminar disc 
@@ -91,7 +91,7 @@ Embryo development from fertilisation to week 9:
 ○ Embryo folding 
 ○ Formation of the primitive gut and body cavities 
 ○ Organogenesis 
-Cell histology and their ultrastructural components: 
+Cell histology and their ultrastructural components
 ● Types of stains & their use/appearance 
 ● Cell ultrastructure - organelles, intracellular filaments 
 ● Epithelium types and where they can be found 
@@ -129,8 +129,8 @@ ILA 1 - Cystic Fibrosis
 ● The type of DNA mutation that corresponds to the ΔF508 mutation which leads to cystic fibrosis, how this leads to abnormal CFTR protein function, and the main consequences of this. 
 ● Autosomal recessive, autosomal dominant, and X-linked inheritance patterns, including how CF is inherited. 
 ● Draw and interpret Punnett squares and pedigree diagrams using standard symbols.  
-Cardiovascular system.
-Principle features of haematology: 
+B. Cardiovascular system
+Principle features of haematology
 ● Constituents of blood (erythrocytes, leucocytes, platelets, plasma) 
 ● Function of plasma proteins 
 ● Coagulation cascade 
@@ -138,7 +138,7 @@ Principle features of haematology:
 ● Blood transfusions and their alternatives 
 ● Transfusion reactions 
 ● Platelet biochemistry, activation and function 
-Physiological features of the cardiovascular system: 
+Physiological features of the cardiovascular system
 ● Electrical activation of the heart 
 ● Electrocardiogram (ECG) 
 ● Cardiac action potentials 
@@ -158,12 +158,12 @@ Physiological features of the cardiovascular system:
 ● Local, neural, and hormonal vasodilators and vasoconstrictors 
 ● Baroreceptors and chemoreceptors, their location and how they function 
 ● Pulmonary vs. systemic circulation (e.g. blood pressure differences) 
-Embryonic development of the heart and circulation: 
+Embryonic development of the heart and circulation
 ● Embryology of the heart and the circulation 
 ● Plan of the circulation 
 ● Vasculogenesis and angiogenesis 
 ● Embryonic aortic arch 
-Histology of the cardiovascular system: 
+Histology of the cardiovascular system
 ● Cardiac muscle (and how it differs from smooth and skeletal muscle) 
 ● Endocardium, myocardium and pericardium 
 ● Cardiac conduction system 
@@ -172,7 +172,7 @@ Histology of the cardiovascular system:
 ● Erythrocytes 
 ● Leucocytes (neutrophils, eosinophils, basophils, lymphocytes, monocytes) 
 ● Platelets  
-Anatomical features of the cardiovascular system: 
+Anatomical features of the cardiovascular system
 ● Overview of anatomy of the thorax 
 ● Surface anatomy 
 ● Major thoracic structures on a normal chest-X-ray and CT of the thorax 
@@ -200,8 +200,8 @@ ILA 2 - Myocardial Infarction
 ● The phases of the cardiac action potential, including the movement of ions, and the concepts of depolarisation, repolarisation, and refractory periods. 
 ● The major modifiable and non-modifiable risk factors for cardiovascular disease. 
 ● Examples of lifestyle modifications, public health strategies, and screening in reducing cardiovascular disease. 
-Respiratory system.  
-Physiological features of the respiratory system: 
+C. Respiratory system  
+Physiological features of the respiratory system
 ● Function of the upper airways 
 ○ Nose; external anatomy and vestibule 
 ○ Nasal turbinates and meatus 
@@ -282,7 +282,7 @@ Physiological features of the respiratory system:
 ○ Hypoxaemia 
 ○ Hypercapnia 
 ○ Oxygen treatment 
-Immune features of the respiratory system: 
+Immune features of the respiratory system
 ● Immune defence in the lung 
 ○ Mechanisms – innate vs. adaptive immunity 
 ○ Respiratory/alveolar epithelium 
@@ -320,11 +320,11 @@ First breath
 ● Laplace’s law and the importance of surfactant 
 ● Common abnormalities 
 ● Surfactant disease of the newborn 
-Embryonic development of the respiratory system: 
+Embryonic development of the respiratory system
 ● Respiratory diverticulum and lung buds 
 ● Foetal circulation and effect of first breath 
 ● Type 2 pneumocyte production and premature babies 
-Histology of the respiratory system: 
+Histology of the respiratory system
 ● Respiratory and olfactory epithelium 
 ● Conducting airways 
 ● Vocal cords 
@@ -334,7 +334,7 @@ Histology of the respiratory system:
 ● Type I and II pneumocytes 
 ● Alveoli 
 ● Pores of Kohn 
-Anatomical features of the respiratory system / thorax: 
+Anatomical features of the respiratory system / thorax
 ● Nasal cavity, paranasal sinuses and palate 
 ● Oral cavity, salivary glands and pharynx 
 ● Anatomy of the neck 
@@ -365,15 +365,15 @@ ILA 4 - Chronic Obstructive Pulmonary Disease
 ● How the body detects and responds to changes in levels of oxygen, carbon dioxide and pH in the blood including the location of the receptors and the subsequent changes in ventilation. 
 ● The different lung volumes and measurements calculated during spirometry. 
 ● Provide some examples of smoking cessation public health initiatives.  
-Gastrointestinal tract and liver (GI-L).  
-Physiological features of the gut: 
+D. Gastrointestinal tract and liver (GI-L)
+Physiological features of the gut
 ● Salivary gland structure, function and innervation 
 ● Swallowing mechanisms and reflexes 
 ● Gastric structure, secretion, motility and protective mechanisms  
 ● Digestion and absorption of macronutrients  
 ● Intestinal digestion, absorption and transport  
 ● Stages of defaecation 
-Physiological features of the liver, gallbladder and pancreas: 
+Physiological features of the liver, gallbladder and pancreas
 ● Liver storage 
 ○ Fat soluble vitamins 
 ○ Vitamins and iron storage 
@@ -400,12 +400,12 @@ Physiological features of the liver, gallbladder and pancreas:
 ○ Phases of secretion 
 ○ Secretion of bicarbonate 
 ○ Control of secretion – stimulation and inhibition 
-Embryonic development of the gastrointestinal tract and liver: 
+Embryonic development of the gastrointestinal tract and liver
 ● Division of foregut/midgut/hindgut and their innervation and vascular supply 
 ● Development of the foregut and derivatives 
 ● The stages of development of the midgut 
 ● Development of the hindgut 
-Histology of the gastrointestinal tract and liver: 
+Histology of the gastrointestinal tract and liver 
 ● Histology of the gut tube 
 ● Mouth and salivary glands 
 ● Oesophagus 
@@ -415,7 +415,7 @@ Histology of the gastrointestinal tract and liver:
 ● Gallbladder 
 ● Bile ducts 
 ● Exocrine pancreas - acini and ducts 
-Anatomical features of the gastrointestinal tract and liver, and abdomen: 
+Anatomical features of the gastrointestinal tract and liver, and abdomen
 ● Surface anatomy of the abdomen 
 ● Muscles of the anterior abdominal wall 
 ● Location, borders and superficial and deep rings of the inguinal canal 
@@ -440,7 +440,7 @@ ILA 5 - Gastritis and Appendicitis
 ● The features that distinguish between visceral and somatic pain in the abdomen and explain how peritoneal involvement alters pain character and location. 
 ● Key histological features of the stomach, small intestine, and large intestine, and how they relate these to their functions in digestion and absorption. 
 ● Key statistical terms including prevalence, incidence, sensitivity, specificity, positive predictive value and negative predictive value in medical testing, and how to calculate them. 
-Neuroscience.  
+E. Neuroscience
 Neuroanatomy 
 ● Neuroanatomical terminology 
 ● Neuroembryology including neurulation, milestones in brain development and formation of the ventricles 
@@ -563,8 +563,8 @@ ILA 7 - Vestibular Schwannoma
 ● The hierarchy of evidence and basic study design of each type of study. 
 ● The key features of an RCT, including randomisation, blinding, control groups, and outcome measures. 
 ● Why RCTs are considered the gold standard for testing the effectiveness of interventions.
-Skin, UroGenital, Endocrine and Reproduction (SUGER). 
-Physiological features of the renal and urinary system: 
+F. Skin, UroGenital, Endocrine and Reproduction (SUGER)
+Physiological features of the renal and urinary system
 ● Glomerular filtration rate 
 ● Filtration and pressures at the glomerulus 
 ● Filtration barrier (glomerular basement membrane) 
@@ -576,7 +576,7 @@ Physiological features of the renal and urinary system:
 ● Control of micturition (nerve supply to muscles in the bladder) 
 ● Mechanisms of urine voiding and storage 
 ● Erythropoietin 
-Physiological features of the reproductive system: 
+Physiological features of the reproductive system
 ● Ovarian structure - including reserve of primordial follicles 
 ● Stages of follicle development and ovulation 
 ● Testicular structure and spermatogenesis  
@@ -587,7 +587,7 @@ Physiological features of the reproductive system:
 ● Maternal physiological adaptations during pregnancy 
 ● Placental structure and function 
 ● Stages of labour and factors involved in initiation 
-Physiological features of the endocrine system: 
+Physiological features of the endocrine system
 ● Negative and positive feedback loops 
 ● Differences between anterior and posterior pituitary gland 
 ● Axis of anterior and posterior pituitary gland (oxytocin, vasopressin, ACTH, TSH, LH, FSH, GH, prolactin) 
@@ -602,7 +602,7 @@ Physiological features of the endocrine system:
 ● Structure of adrenal gland and hormone production 
 ● Function of aldosterone, cortisol, adrenaline, noradrenaline 
 ● Hormone receptor locations, secondary messenger theory 
-Physiological features of the skin: 
+Physiological features of the skin
 ● Waterproof/physical barrier 
 ● Vitamin D synthesis 
 ● Endocrine organ 
@@ -610,20 +610,20 @@ Physiological features of the skin:
 ● Immune organ 
 ● Sensory organ 
 ● Thermoregulation 
-Embryonic development of the urogenital and reproductive organs: 
+Embryonic development of the urogenital and reproductive organs
 ● Importance of primordial germ cell migration for gonadal development 
 ● Mullerian and Wolffian ducts 
 ● Differentiation of the indifferent gonad and the fates of the mesonephric and paramesonephric ducts  
 ● Differentiation of the external genitalia  
 ● Development of the kidneys 
 ● Development of bladder and urethra 
-Histology of SUGER, with a focus on: 
+Histology of SUGER
 ● Skin - epidermis, epidermal appendages, dermis, subcutis, breast, lactating breast 
 ● Male reproductive tract - testis, epididymis, spermatic cord, seminal vesicles, prostate, penis 
 ● Female reproductive tract - ovary, fallopian tube, endometrium (in each stage of menstrual cycle), myometrium, endocervix, transformation zone, ectocervix, vagina, vulva 
 ● Endocrine system - pituitary, pineal, thyroid, parathyroid, endocrine pancreas 
 ● Urinary tract - kidney, urothelium, ureter, bladder, urethra 
-Anatomical features of the urogenital and pelvic organs: 
+Anatomical features of the urogenital and pelvic organs
 ● Major bony landmarks and joints of the pelvis  
 ● Inguinal canal (borders and contents) 
 ● Anatomy of female genitalia and pelvic organs: vulva, erectile tissues, vagina, cervix, uterus and uterine tubes, ovaries, rectum. 
@@ -649,8 +649,8 @@ ILA 9 - Subfertility
 ● The process of spermatogenesis, including the stages of sperm development, maturation, and storage. 
 ● Sperm structure and function in relation to fertilisation. 
 ● The physiological processes involved in fertilisation, including oocyte maturation and ovulation, sperm transport and capacitation and fertilisation. 
-Musculoskeletal (MSK). 
-Intro 
+G. Musculoskeletal (MSK)
+Intro
 ● MSK importance / health burden 
 ● Range of common MSK disorders  
 Bone 
@@ -716,7 +716,7 @@ o Uric acid sources
 o Uric acid metabolism 
 o Causes of high uric acid 
 o Gout, Lesch-Nyhan 
-Histology: 
+Histology
 ● Skeletal muscle (and differences between skeletal, smooth and cardiac muscle) 
 ● Bone histology 
 ● Ossification 
@@ -729,8 +729,7 @@ ILA 10 - Distal Radius Fracture
 ● How these hormones affect bone metabolism, intestinal calcium absorption, and renal calcium handling. 
 ● The importance of patient confidentiality in healthcare settings. 
 ● The principles of medical privacy, when information can be shared, and the professional responsibilities of healthcare workers in protecting patient information.
-Themes 
-Prescribing.  
+H. Prescribing 
 Use of FP10 prescriptions in Primary Care (linked to ‘Generalism and holistic patient care’ - EYGP session 1) 
 ● FP10 prescriptions 
 ● Minimum requirements to produce a valid and legal prescription 
@@ -776,16 +775,16 @@ Drugs associated with dependence and withdrawal symptoms (linked to ‘Osteoarth
 ● Risks associated with strong opiates in chronic pain 
 ● Drug classes associated with increased risk of dependence or harm 
 ● Steps that prescribers can take to reduce risk of harm if prescribing a drug which can cause dependence 
-Public health. 
-Prevent disease and promote good health: 
+I. Public health 
+Prevent disease and promote good health
 ● Public health focuses on the health of populations, not just individuals. This perspective allows you to understand the many factors that influence the health of populations, and strategies for disease prevention and health promotion. 
-Address social determinants of health: 
+Address social determinants of health
 ● Public health emphasises the social, economic, and environmental factors that contribute to health disparities. This knowledge can be used to address the underlying causes of diseases and improve health outcomes for vulnerable populations. 
 ● A good understanding of public health will allow you to learn to advocate for policies and programs that promote health equity and address the social determinants of health. 
-Deliver effective and efficient healthcare: 
+Deliver effective and efficient healthcare
 ● Public health principles help you understand the importance of equitable and efficient resource allocation and the need to balance individual needs with the needs of the population. 
 ● Knowledge of public health can inform the development of quality improvement initiatives and help contribute to improving the overall quality of healthcare. 
-Take an interdisciplinary approach: 
+Take an interdisciplinary approach
 ● Public health requires collaboration with a variety of professionals, including [but not limited to] statisticians, epidemiologists, psychologists, sociologists, healthcare management. Understanding public health principles fosters effective collaboration to address complex health issues. 
 Three pillars of public health 
 ● Health protection 
@@ -811,7 +810,7 @@ Public mental health
 ● Role of stress in health and illness 
 ● Psychological aspects of pain and pain management 
 Common Mental Health Disorders (CMDs): prevalence, impact, and management 
-Critical numbers. 
+J. Critical numbers
 Quantitative study design 
 ● Populations and samples 
 ● Bias and confounding 
@@ -839,7 +838,7 @@ Inferential statistics
 Critical appraisal 
 ● How to review and evaluate the quality of evidence 
 ● Use of critical appraisal tools 
-Early Years General Practice (EYGP).
+K. Early Years General Practice (EYGP)
 Session 1 ‘Generalism and holistic patient care’ (during IMMS block) 
 ● Role of a general practitioner and differences between primary and secondary care. 
 ● ‘Person centred care’ and examples of how this may look in practice. 
@@ -911,9 +910,7 @@ def get_prompt_examples(target_subtopic, target_topic, json_filepath=MINERVA_FIL
     Behavior changes:
     - Do NOT try to match topic/subtopic; instead pick random examples from the file.
     - Always return a JSON array (string) where each element is an object matching the
-      required example schema (includes `topic` and `subtopic` fields). If the source
-      is Markdown and topic/subtopic are unknown, assign random values from
-      `KNOWN_TOPICS` and `VALID_SUBTOPICS` to those fields.
+      required example schema (includes `topic` and `subtopic` fields).
     """
     try:
         with open(json_filepath, 'r', encoding='utf-8') as f:
@@ -1036,7 +1033,7 @@ def validate_subtopics(extracted: list) -> list:
 
 # Topic headers used for syllabus parsing.
 KNOWN_TOPICS = [
-    "Introduction to Medicine and Medical Science (IMMS).", "Cardiovascular system.", "Respiratory system.", "Gastrointestinal tract and liver (GI-L).", "Neuroscience.", "Skin, UroGenital, Endocrine and Reproduction (SUGER).", "Musculoskeletal (MSK).", "Prescribing.", "Public health.", "Critical numbers.", "Early Years General Practice (EYGP)."
+    "A. Introduction to Medicine and Medical Science (IMMS)", "B. Cardiovascular system", "C. Respiratory system", "D. Gastrointestinal tract and liver (GI-L)", "E. Neuroscience", "F. Skin, UroGenital, Endocrine and Reproduction (SUGER)", "G. Musculoskeletal (MSK)", "H. Prescribing", "I. Public health", "J. Critical numbers", "K. Early Years General Practice (EYGP)"
 ]
 
 # Build BLOCK_HEADERS from known topics for robust, normalized matching.
@@ -1045,16 +1042,17 @@ BLOCK_HEADERS = set(normalize(t) for t in KNOWN_TOPICS)
 
 # Add a few common header variants that may appear in the syllabus text.
 _extra_headers = [
-    "Introduction to Medicine and Medical Science (IMMS)",
-    "Cardiovascular system",
-    "Respiratory system",
-    "Gastrointestinal tract and liver (GI-L)",
-    "Skin, UroGenital, Endocrine and Reproduction (SUGER)",
-    "Musculoskeletal (MSK)",
-    "Public health",
-    "Prescribing",
-    "Critical numbers",
-    "Early Years General Practice (EYGP)",
+    "A. Introduction to Medicine and Medical Science (IMMS)",
+    "B. Cardiovascular system",
+    "C. Respiratory system",
+    "D. Gastrointestinal tract and liver (GI-L)",
+    "E. Neuroscience",
+    "F. Skin, UroGenital, Endocrine and Reproduction (SUGER)",
+    "G. Musculoskeletal (MSK)",
+    "H. Public health",
+    "I. Prescribing",
+    "J. Critical numbers",
+    "K. Early Years General Practice (EYGP)",
 ]
 for h in _extra_headers:
     BLOCK_HEADERS.add(normalize(h))
