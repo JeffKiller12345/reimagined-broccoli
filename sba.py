@@ -15,7 +15,7 @@ API_KEYS = [
 WORKSPACE_DIR = "/workspaces/reimagined-broccoli"
 OUTPUT_FILE_ABS = os.path.join(WORKSPACE_DIR, "question_bank.json")
 current_key_idx = 0
-OUTPUT_FILE = "./question_bank.json"
+OUTPUT_FILE = OUTPUT_FILE_ABS
 MINERVA_FILE = "./exemplars.md"
 SYLLABUS = """
 Introduction to Medicine and Medical Science (IMMS).
