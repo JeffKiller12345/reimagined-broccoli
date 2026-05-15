@@ -7,6 +7,8 @@ from datetime import datetime, date, timedelta
 from difflib import get_close_matches
 import random
 
+load_dotenv()
+
 API_KEYS = [
     os.getenv("GEMINI_API_KEY_1"),
     os.getenv("GEMINI_API_KEY_2"),
