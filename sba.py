@@ -5,6 +5,7 @@ import os
 import time
 from datetime import datetime, date, timedelta
 from difflib import get_close_matches
+import random
 
 API_KEYS = [
     "AIzaSyCNDTDCSHbo0qE59rFpcINv-hhfVG99D_0", # Key 1
@@ -13,7 +14,7 @@ API_KEYS = [
 ]
 current_key_idx = 0
 OUTPUT_FILE = "/home/jiclawdbot/Yeen/question_bank.json"
-MINERVA_FILE = "/home/jiclawdbot/Yeen/minervaquestionsmerged.json"
+MINERVA_FILE = "/home/jiclawdbot/Yeen/exemplars.md"
 SYLLABUS = """
 Introduction to Medicine and Medical Science (IMMS).
 Genetics: 
@@ -98,7 +99,7 @@ Cell histology and their ultrastructural components:
 ● Schwann cells 
 ● Nodes of Ranvier 
 ● Synapses 
-Introduction to anatomical features of the human body (note: most of the anatomy taught in this teaching block is revisited in the relevant block later in the year): 
+Introduction to anatomical features of the human body
 ● Anatomical position 
 ● Coronal, sagittal and transverse planes 
 ● Anatomical terminology 
@@ -635,7 +636,7 @@ ILA 8 - Dehydration and Acute Kidney Injury
 ● How changes in the diameter of the afferent and efferent arterioles of the glomerulus affect glomerular filtration rate (GFR). 
 ● The main sites of reabsorption and secretion of water and key ions (sodium, potassium, hydrogen, and bicarbonate) within the nephron, including the proximal convoluted tubule (PCT), loop of Henle, distal convoluted tubule (DCT), and collecting ducts. 
 ● The hormonal regulation of water reabsorption, including the roles and mechanisms of aldosterone and antidiuretic hormone (ADH). 
-○ The renal mechanisms involved in acid-base balance, particularly the reabsorption of bicarbonate and the secretion of hydrogen ions. 
+● The renal mechanisms involved in acid-base balance, particularly the reabsorption of bicarbonate and the secretion of hydrogen ions. 
 ILA 9 - Subfertility
 ● The anatomy of the female reproductive tract, including the ovaries, uterine tubes, uterus, cervix, and vagina, including the structure and function of each part. 
 ● How the hypothalamic-pituitary-ovarian (HPO) axis regulates the menstrual cycle, including the roles of GnRH, FSH, LH, oestrogen, and progesterone. 
@@ -811,10 +812,10 @@ Quantitative study design
 ● Bias and confounding 
 ● Association vs. causation 
 ● Types of study design, including: 
-○ Randomised controlled trials 
-○ Cohort studies 
-○ Case-control studies 
-○ Cross-sectional studies 
+● Randomised controlled trials 
+● Cohort studies 
+● Case-control studies 
+● Cross-sectional studies 
 ● Hierarchy of evidence 
 Summary statistics 
 ● Types of data 
@@ -826,10 +827,10 @@ Inferential statistics
 ● Hypothesis testing 
 ● Estimation-based inference 
 ● How to interpret and communicate results: 
-○ Point and interval estimates 
-○ Probability values 
-○ Statistical significance vs. clinical importance 
-○ Clinical risk prediction 
+● Point and interval estimates 
+● Probability values 
+● Statistical significance vs. clinical importance 
+● Clinical risk prediction 
 Critical appraisal 
 ● How to review and evaluate the quality of evidence 
 ● Use of critical appraisal tools 
@@ -899,242 +900,112 @@ Session 11 ‘Osteoarthritis / Chronic pain’ (during MSK block)
 """
 import re
 
-def get_prompt_examples(target_subtopic,target_topic, json_filepath=MINERVA_FILE, min_examples=3):
-    """Fetches up to 5 examples from the minerva bank for the given subtopic."""
+def get_prompt_examples(target_subtopic, target_topic, json_filepath=MINERVA_FILE, min_examples=3):
+    """Return up to `min_examples` exemplar questions as a JSON array string.
+
+    Behavior changes:
+    - Do NOT try to match topic/subtopic; instead pick random examples from the file.
+    - Always return a JSON array (string) where each element is an object matching the
+      required example schema (includes `topic` and `subtopic` fields). If the source
+      is Markdown and topic/subtopic are unknown, assign random values from
+      `KNOWN_TOPICS` and `VALID_SUBTOPICS` to those fields.
+    """
     try:
         with open(json_filepath, 'r', encoding='utf-8') as f:
-            all_questions = json.load(f)
+            text = f.read()
     except FileNotFoundError:
-        return "Error: Could not find the Minerva JSON file. Proceeding without examples."
-    except json.JSONDecodeError:
-        return "Error: Minerva JSON file is invalid. Proceeding without examples."
+        return '[]'
 
-    selected_questions = []
-    seen_texts = set()
+    # Try parse as JSON; if that fails, treat as markdown
+    try:
+        all_questions = json.loads(text)
+        # Ensure it's a list
+        if not isinstance(all_questions, list):
+            all_questions = [all_questions]
+        source = 'json'
+    except Exception:
+        all_questions = []
+        source = 'md'
 
-    # --- TIER 1: Exact Subtopic Match ---
-    for q in all_questions:
-        if q.get("subtopic") == target_subtopic:
-            selected_questions.append(q)
-            seen_texts.add(q["question"])
-        if len(selected_questions) >= min_examples:
-            break
+    parsed = []
 
-    # --- TIER 2: Topic Match (if more needed) ---
-    if len(selected_questions) < min_examples:
+    if source == 'json':
+        # Use the provided objects as-is but ensure required keys exist
         for q in all_questions:
-            # Check if topic matches and we haven't already added this question
-            if q.get("topic") == target_topic and q["question"] not in seen_texts:
-                selected_questions.append(q)
-                seen_texts.add(q["question"])
-            if len(selected_questions) >= min_examples:
+            if len(parsed) >= min_examples:
                 break
+            obj = {
+                'topic': q.get('topic') or random.choice(KNOWN_TOPICS) if KNOWN_TOPICS else 'General',
+                'subtopic': q.get('subtopic') or (random.choice(VALID_SUBTOPICS) if VALID_SUBTOPICS else 'General'),
+                'question': q.get('question', ''),
+                'options': q.get('options', {}),
+                'correct_answer': q.get('correct_answer', ''),
+                'feedback': q.get('feedback', ''),
+            }
+            parsed.append(obj)
 
-    # --- TIER 3: Start of File (if still more needed) ---
-    if len(selected_questions) < min_examples:
-        for q in all_questions:
-            if q["question"] not in seen_texts:
-                selected_questions.append(q)
-                seen_texts.add(q["question"])
-            if len(selected_questions) >= min_examples:
-                break
+    else:
+        # Parse simple markdown Q blocks
+        lines = text.splitlines()
+        i = 0
+        while i < len(lines) and len(parsed) < min_examples:
+            line = lines[i].strip()
+            m = re.match(r'^(Q\d+)\.(.*)', line, flags=re.IGNORECASE)
+            if m:
+                stem = m.group(2).strip()
+                opts = []
+                i += 1
+                while i < len(lines) and lines[i].strip() == '':
+                    i += 1
+                while i < len(lines) and lines[i].strip() != '':
+                    opts.append(lines[i].rstrip())
+                    i += 1
 
-    # 3. Format into a string for the prompt
-    formatted_examples = ""
-    for i, q in enumerate(selected_questions[:min_examples], 1): # Cap at min_examples to keep prompt size reasonable
-        formatted_examples += f"Example {i}:\n"
-        formatted_examples += f"Stem: {q['question']}\n"
-        
-        # Build options
-        options_text = ""
-        for letter, text in q.get('options', {}).items():
-            options_text += f"{letter}: {text}\n"
-            
-        formatted_examples += f"Options:\n{options_text}"
-        formatted_examples += f"Correct: {q['correct_answer']}\n"
-        formatted_examples += f"Feedback: {q['feedback']}\n\n"
+                options_dict = {}
+                correct_letter = None
+                for idx, raw in enumerate(opts[:5]):
+                    text_opt = raw.lstrip()
+                    is_correct = False
+                    if text_opt.startswith('^'):
+                        is_correct = True
+                        text_opt = text_opt[1:].lstrip()
+                    text_opt = re.sub(r'^[\-•\u2022\s]+', '', text_opt)
+                    letter = chr(ord('A') + idx)
+                    options_dict[letter] = text_opt
+                    if is_correct:
+                        correct_letter = letter
 
-    return formatted_examples
-# ── CANONICAL SUBTOPIC LIST ────────────────────────────────────────────────────
-# <<< ADD THIS ENTIRE BLOCK
-CANONICAL_SUBTOPICS = [
-"Describe the nature of disease",
-"Describe the process of acute inflammation",
-"Describe the process of chronic inflammation",
-"Describe the process of atherosclerosis formation",
-"Describe the process of haemostasis",
-"Describe the processes of apoptosis and necrosis",
-"Describe the process of cell and tissue growth",
-"Describe the process of carcinogenesis",
-"Describe the processes of how cancer spreads within the body",
-"Describe the process of tumour classification",
-"Describe the fundamental aspects of cancer treatments",
-"Describe the processes of tissue healing and repair",
-"Describe the process of aging and the role of the autopsy in determining cause of death",
-"List and describe the function of the main cellular and humoral components of the immune system",
-"Explain the main features of innate and adaptive immunity, the key differences between them, and how they work together to create our immune system",
-"Describe hypersensitivity and explain the key features of an allergic response",
-"Explain how immunity changes with ageing and the impact of this on our susceptibility to disease",
-"Describe the principles of immunotherapy in the management of cancer and inflammatory diseases",
-"Describe the principles of immunisation and give examples of the different vaccines available and their benefits and drawbacks",
-"Describe how immunological processes develop and become manifest and the consequences for the major organ systems detailed in Phase 2a",
-"Describe the key features of pharmacodynamics of drug action (the biochemical and physiological effects of drugs)",
-"Describe the key features of pharmacokinetics (the administration and subsequent fate of administered substances) and pharmacogenomics",
-"Describe the mechanism of action and list examples of the following classes of drugs: Cholinergic, Adrenergic, Analgesics (opioids)",
-"Define the following terms and explain their implications for prescribing and clinical management: Adverse drug reactions, Drug interactions",
-"Describe the principles of drug discovery and development",
-"Prescription Writing Early Years GP Prescribing Tasks",
-"Describe the biology and classification of micro-organisms",
-"Gram-positive pathogens",
-"Gram-negative pathogens",
-"Mycobacteria",
-"Tuberculosis (TB)",
-"Protozoa and Helminths",
-"Immunisation and Notifiable Infectious Diseases (Cross Ref to Public Health)",
-"Meningococcal infections: An important example of vaccine-preventable notifiable disease (Cross Ref to Public Health)",
-"Viruses",
-"Mycology and antifungals",
-"Antivirals",
-"Antibiotics",
-"Healthcare-acquired infections",
-"HIV Symposium",
-"Full blood count",
-"Anaemia",
-"Haemoglobinopathies and red cell disorders",
-"Bleeding disorders",
-"Anticoagulation and thrombosis",
-"Malignant haematology",
-"Blood transfusion",
-"Haematology emergencies",
-"Apply theoretical frameworks of sociology to explain the varied responses of individuals, groups and societies to disease",
-"Explain sociological factors that contribute to illness, the course of the disease and the success of treatment − including issues relating to health inequalities, the links between occupation and health and the effects of poverty and affluence",
-"Explain and apply the basic principles of communicable disease control in hospital and community settings",
-"Evaluate and apply epidemiological data in managing healthcare for the individual and the community",
-"Critically appraise the results of relevant diagnostic, prognostic and treatment trials and other qualitative and quantitative studies as reported in the medical and scientific literature",
-"Identify appropriate strategies for managing patients with dependence issues and other demonstrations of self-harm",
-"Discuss psychological aspects of behavioural change and treatment compliance",
-"Apply scientific method and approaches to medical research",
-"Obstructive lung diseases",
-"Restrictive lung diseases",
-"Pleural disease",
-"Lung cancer",
-"Respiratory infections (overlap with microbiology/immunology/public health teaching)",
-"Community acquired pneumonia",
-"Influenza and pandemics",
-"Occupational health and lung disorders",
-"Palliative care in respiratory disease",
-"Importance of MSK conditions",
-"Fractures",
-"Inherited / Autoimmune Connective tissue disorders",
-"The inflamed joint and Gout",
-"Spondyloarthropathy",
-"Degenerative joint",
-"Soft tissue MSK disorders",
-"Osteoporosis & bone disorders",
-"MSK infections",
-"Back pain",
-"Anatomy and Physiology",
-"Appetite",
-"Diabetes Mellitus – Part 1",
-"Diabetes Mellitus – Part 2",
-"Diabetes Mellitus – Part 3",
-"Diabetes Mellitus – Part 4",
-"Diabetes Mellitus – Part 5",
-"Diabetes Mellitus – Part 6",
-"Overview - Functional Anatomy and Physiology",
-"Thyroid",
-"Pituitary Hormones (Part 1; Anterior) - Regulation and Presentation of Pituitary Disease",
-"Non-functioning tumours and pituitary hormone testing",
-"Acromegaly and Prolactin",
-"Pituitary Hormones – (Part 2; Posterior) - Water Balance, Hyponatraemia, Vasopressin Deficiency and Resistance (Diabetes Insipidus)",
-"Circadian Rhythms, Adrenal Insufficiency and Cortisol Excess (Cushings syndrome)",
-"Endocrine Hypertension",
-"Parathyroid and Disorders of Calcium Metabolism",
-"Puberty",
-"Reproductive Endocrinology",
-"Anticoagulants and Antiplatelets",
-"Deep Vein Thrombosis (DVT) and Pulmonary Embolism (PE)",
-"PVD",
-"Atheroma",
-"Chronic coronary syndrome",
-"Acute coronary syndrome",
-"ECG Parts 1 and 2",
-"Inherited cardiac conditions",
-"Cardiovascular Pharmacology Parts 1 and 2",
-"Hypertension",
-"Heart failure",
-"Pericarditis",
-"Valvular disease",
-"Structural heart defects",
-"Infective endocarditis",
-"Clinically-Oriented Neuroanatomy",
-"Dementia",
-"Stroke",
-"CNS Infections",
-"Parkinsons disease and its differential diagnosis",
-"Neurosurgery: An Introductory Lecture",
-"Brain tumours",
-"Neuro-rehabilitation",
-"Consciousness: its assessment and common disorders",
-"Cerebellar disease",
-"Neuromuscular and muscular disorders",
-"Multiple Sclerosis",
-"Headaches",
-"Spinal cord disorders",
-"Epilepsy",
-"Functional Neurological disorders (FND)",
-"Motor Neurone Disease",
-"Traumatic brain injury",
-"Hyperkinetic Movement Disorders",
-"Sensory symptoms",
-"Review of Phase 1 kidney anatomy and renal physiology",
-"Fluid balance",
-"Penile cancer and Erectile dysfunction",
-"Bladder Cancer",
-"Kidney Cancer",
-"Prostate Cancer, Prostate Specific Antigen (PSA) and Advanced Prostate Cancer",
-"Testicular cancer",
-"Systemic treatment of cancer",
-"Chronic Kidney Disease (CKD)",
-"Lower Urinary Tract Syndrome (LUTS)",
-"Stone Disease and Obstruction",
-"Mens Health",
-"Glomerular disease",
-"Acute Kidney Injury (AKI)",
-"Urinary Tract Infection (UTI) and pyelonephritis",
-"Reconstructive Urology",
-"Liver disease",
-"Hepatitis",
-"Infection of the gastrointestinal and liver systems",
-"Gastrointestinal bleeding",
-"Pathology of gastrointestinal tumours",
-"Gastrointestinal obstruction",
-"Pathology of Gastritis, Malabsorption and Ulceration",
-"Coeliac disease",
-"Peptic ulcer disease",
-"Gall stones",
-"Inflammatory Bowel Disease (IBD)",
-"Functional gut disorders",
-"Peritonitis",
-"Ascites",
-"Polypharmacy and Holistic care",
-"Child health surveillance and vaccinations",
-"TB and Homeless health",
-"Stroke",
-"COPD",
-"Diabetes",
-"Palpitations",
-"Dementia",
-"Eating Disorders",
-"Lower urinary tract symptoms",
-"Liver disease, Hepatitis and Sexual health",
-"ILA 11 - Pathology",
-"ILA 12 - Immunology & Pharmacology",
-"ILA 13 - Microbiology",
-"ILA 14 - Endocrinology",
-"ILA 15 - Cardiology & Neurology",
-"ILA 16 - Renal & Urology",
-]
+                if not correct_letter and options_dict:
+                    correct_letter = 'A'
+
+                obj = {
+                    'topic': random.choice(KNOWN_TOPICS) if KNOWN_TOPICS else 'General',
+                    'subtopic': random.choice(VALID_SUBTOPICS) if VALID_SUBTOPICS else 'General',
+                    'question': stem,
+                    'options': options_dict,
+                    'correct_answer': correct_letter or 'A',
+                    'feedback': ''
+                }
+                parsed.append(obj)
+            else:
+                i += 1
+
+    # If we still don't have enough, pad with empty example templates
+    while len(parsed) < min_examples:
+        parsed.append({
+            'topic': random.choice(KNOWN_TOPICS) if KNOWN_TOPICS else 'General',
+            'subtopic': random.choice(VALID_SUBTOPICS) if VALID_SUBTOPICS else 'General',
+            'question': '',
+            'options': { 'A': '', 'B': '', 'C': '', 'D': '', 'E': '' },
+            'correct_answer': 'A',
+            'feedback': ''
+        })
+
+    # Return the JSON array string exactly (no extra commentary)
+    return json.dumps(parsed, ensure_ascii=False, indent=2)
+# Canonical subtopics are now derived from the current `SYLLABUS` text.
+# This keeps the canonical list synchronized with any syllabus updates.
+CANONICAL_SUBTOPICS = []  # will be populated dynamically after `extract_subtopics` is defined
 
 def normalize(text: str) -> str:
     """Strip bullets, punctuation, extra spaces, and lowercase for fuzzy comparison."""
@@ -1158,24 +1029,26 @@ def validate_subtopics(extracted: list) -> list:
             print(f"  [SKIPPED] No canonical match for: {subtopic!r}")
     return validated
 
-BLOCK_HEADERS = {
-    "pathology",
-    "immunology",
-    "pharmacology and prescribing",
-    "microbiology",
-    "haematology",
-    "public health and population health science",
-    "respiratory medicine",
-    "musculoskeletal medicine msk",
-    "diabetes mellitus and general endocrinology",
-    "general endocrinology",
-    "cardiovascular medicine",
-    "neurology",
-    "urology and renal medicine",
-    "gastrointestinal and hepatic medicine",
-    "teaching theme phase 2a early years gp eygp programme",
-    "teaching theme phase 2a ila programme",
-}
+# Build BLOCK_HEADERS from known topics for robust, normalized matching.
+# This prevents top-level topic headings from being treated as subtopics.
+BLOCK_HEADERS = set(normalize(t) for t in KNOWN_TOPICS)
+
+# Add a few common header variants that may appear in the syllabus text.
+_extra_headers = [
+    "Introduction to Medicine and Medical Science (IMMS)",
+    "Cardiovascular system",
+    "Respiratory system",
+    "Gastrointestinal tract and liver (GI-L)",
+    "Skin, UroGenital, Endocrine and Reproduction (SUGER)",
+    "Musculoskeletal (MSK)",
+    "Public health",
+    "Prescribing",
+    "Critical numbers",
+    "Early Years General Practice (EYGP)",
+]
+for h in _extra_headers:
+    BLOCK_HEADERS.add(normalize(h))
+
 
 def extract_subtopics(syllabus: str) -> list:
     # 1. Clean lines
@@ -1228,8 +1101,13 @@ def extract_subtopics(syllabus: str) -> list:
 # ['Apply theoretical frameworks of sociology to explain the varied responses of individuals, groups and societies to disease.', 
 #  'Explain sociological factors that contribute to illness, the course of the disease and the success of treatment − including issues relating to health inequalities...']
 
+# Build canonical subtopics from the current syllabus text and create
+# the normalized lookup used by `validate_subtopics`.
+CANONICAL_SUBTOPICS = extract_subtopics(SYLLABUS)
+_normalized_canonical = {normalize(s): s for s in CANONICAL_SUBTOPICS}
 
-VALID_SUBTOPICS = validate_subtopics(extract_subtopics(SYLLABUS))
+# Validate extracted subtopics (maps to canonical spelling where possible)
+VALID_SUBTOPICS = validate_subtopics(CANONICAL_SUBTOPICS)
 
 KNOWN_TOPICS = [
     "Introduction to Medicine and Medical Science (IMMS).", "Cardiovascular system.", "Respiratory system.", "Gastrointestinal tract and liver (GI-L).", "Neuroscience.", "Skin, UroGenital, Endocrine and Reproduction (SUGER).", "Musculoskeletal (MSK).", "Prescribing.", "Public health.", "Critical numbers.", "Early Years General Practice (EYGP)."
@@ -1298,57 +1176,55 @@ subtopics_for_prompt = '", "'.join(VALID_SUBTOPICS)
 
 # 1. The base instructions (No examples)
 BASE_SYSTEM_PROMPT = f"""
-You are a medical examination question writer for a UK medical school.
-Your sole purpose is to generate high-quality single best answer (SBA)
-multiple choice questions for second year medical students.
+You are a medical examination question writer for a UK medical school. 
+Your sole purpose is to generate high-quality single best answer (SBA) 
+multiple choice questions for FIRST year medical students.
 
 RULES YOU MUST NEVER BREAK:
-- Every question must follow the EXACT format shown in the examples below.
+- FOCUS ON NORMALCY: Questions must primarily test normal anatomy, physiology, biochemistry, and pharmacology. 
+- CLINICAL VIGNETTES: Questions should be framed in a clinical context (e.g., a patient presenting with a specific symptom), but the question itself must ask about the underlying normal anatomical location, physiological mechanism, or biochemical pathway.
+- DIFFICULTY LEVEL: Target 1st year UK medical students. Focus on foundational principles. Do not include pathology, disease management, or complex therapeutics unless it specifically relates to the 'Early Years GP' learning objectives.
 - MANDATORY QUESTION LEAD-IN: The 'stem' MUST end with a clear, explicit question.
-- DIFFICULTY LEVEL: Target 2nd year UK medical students. Focus on the core, common conditions and mechanisms. Do not include post-graduate level minutiae, complex pharmacoloy, obscure drug dosing or advanced pathophysiology.
-- Each question must have exactly 5 answer options labelled A through E.
-- There is always exactly one correct answer. The other four are plausible
-  distractors — wrong for a specific, clinically teachable reason.
-- The clinical scenario must be realistic and internally consistent.
-- Do not repeat questions from the examples provided.
-- When asking about treatment focus on principles of management and full drug class names using generic terminology only. Strictly exclude trade names, niche medications, and their PK/PD, restricting pharmacological details to common, systems-based drugs.  
-- When a question requires blood results, include reference ranges in brackets.
-- You must return ONLY valid JSON. No preamble, no explanation, 
-  no markdown code fences. Just the raw JSON array.
+- FORMAT: Each question must have exactly 5 answer options labelled A through E.
+- DISTRACTORS: There is always exactly one correct answer. The other four are plausible distractors — wrong for a specific, identifiable physiological or anatomical reason.
+- GP EXCEPTION: If the syllabus objectives provided relate to 'Early Years GP' sessions, you may test specific clinical/social learning objectives as outlined.
+- LAB RESULTS: When a question requires blood results or physiological parameters, include reference ranges in brackets.
+- You must return ONLY valid JSON. No preamble, no explanation, no markdown code fences. Just the raw JSON array.
 """
 
-# 2. The required JSON structure
+# 2. The required JSON structure (example used only for instructing the model)
 JSON_OUTPUT_FORMAT = """
 OUTPUT FORMAT — return exactly this JSON structure:
 [
-  {
-    "topic": "Microbiology",
-    "subtopic": "Tuberculosis (TB)",
-    "question": "Stem text here...",
-    "options": {
-      "A": "...",
-      "B": "...",
-      "C": "...",
-      "D": "...",
-      "E": "..."
-    },
-    "correct_answer": "B",
-    "feedback": "B is correct because... A is incorrect because..."
-  }
+    {
+        "topic": "Anatomy",
+        "subtopic": "Visual Pathways",
+        "question": "A 55-year-old man is found to have a loss of the left visual field in both eyes (left homonymous hemianopia) following a stroke. Damage to which of the following structures is most likely to result in this specific defect?",
+        "options": {
+            "A": "Left optic nerve",
+            "B": "Optic chiasm",
+            "C": "Right optic tract",
+            "D": "Left optic tract",
+            "E": "Right optic nerve"
+        },
+        "correct_answer": "C",
+        "feedback": "C is correct because a left homonymous hemianopia is caused by a lesion in the right optic tract. A and E are incorrect as they cause monocular loss. B is incorrect as it causes bitemporal hemianopia."
+    }
 ]
 """
 
 def build_user_prompt(topic: str, subtopic: str, bullets: list, num_questions: int) -> str:
     bullet_text = "\n".join(bullets) if bullets else "No specific objectives provided."
-    return f"""Generate exactly {num_questions} SBA questions on the subtopic: {subtopic}
+    return f"""Generate exactly {num_questions} SBA questions for the topic: {topic}
+Subtopic: {subtopic}
 
-SYLLABUS OBJECTIVES FOR THIS SUBTOPIC:
+SYLLABUS OBJECTIVES TO TEST:
 {bullet_text}
 
 Requirements:
-- All {num_questions} questions must test different learning objectives from the syllabus objectives above.
-- Vary the clinical setting (e.g. GP, ED, ward, clinic)
-- Vary what is being asked (e.g. diagnosis, investigation, management, mechanism)
+- Ensure the questions test UNDERLYING NORMAL PHYSIOLOGY or ANATOMY, even when using a clinical stem.
+- For GP-specific objectives, focus on the social, professional, or primary care principles mentioned in the bullets.
+- Vary the physiological systems or anatomical regions based on the objectives.
 - The "topic" field must be exactly: "{topic}"
 - The "subtopic" field must be exactly: "{subtopic}"
 - Return exactly {num_questions} questions in the JSON array format. Nothing else."""
@@ -1591,12 +1467,6 @@ def main():
     current_model_idx = 0
     
     HIGH_YIELD_TOPICS = {
-        "Microbiology",
-        "Respiratory Medicine",
-        "Cardiovascular Medicine",
-        "Gastrointestinal and Hepatic Medicine",
-        "Neurology",
-        "Pharmacology and Prescribing"
     }
     first_run = True
 
