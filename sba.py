@@ -6,6 +6,7 @@ import time
 from datetime import datetime, date, timedelta
 from difflib import get_close_matches
 import random
+from dotenv import load_dotenv
 
 load_dotenv()
 
