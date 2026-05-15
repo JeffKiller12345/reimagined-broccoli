@@ -1029,6 +1029,11 @@ def validate_subtopics(extracted: list) -> list:
             print(f"  [SKIPPED] No canonical match for: {subtopic!r}")
     return validated
 
+# Topic headers used for syllabus parsing.
+KNOWN_TOPICS = [
+    "Introduction to Medicine and Medical Science (IMMS).", "Cardiovascular system.", "Respiratory system.", "Gastrointestinal tract and liver (GI-L).", "Neuroscience.", "Skin, UroGenital, Endocrine and Reproduction (SUGER).", "Musculoskeletal (MSK).", "Prescribing.", "Public health.", "Critical numbers.", "Early Years General Practice (EYGP)."
+]
+
 # Build BLOCK_HEADERS from known topics for robust, normalized matching.
 # This prevents top-level topic headings from being treated as subtopics.
 BLOCK_HEADERS = set(normalize(t) for t in KNOWN_TOPICS)
@@ -1108,10 +1113,6 @@ _normalized_canonical = {normalize(s): s for s in CANONICAL_SUBTOPICS}
 
 # Validate extracted subtopics (maps to canonical spelling where possible)
 VALID_SUBTOPICS = validate_subtopics(CANONICAL_SUBTOPICS)
-
-KNOWN_TOPICS = [
-    "Introduction to Medicine and Medical Science (IMMS).", "Cardiovascular system.", "Respiratory system.", "Gastrointestinal tract and liver (GI-L).", "Neuroscience.", "Skin, UroGenital, Endocrine and Reproduction (SUGER).", "Musculoskeletal (MSK).", "Prescribing.", "Public health.", "Critical numbers.", "Early Years General Practice (EYGP)."
-]
 
 def get_syllabus_data(syllabus: str, valid_subtopics: list) -> dict:
     """Parses the syllabus and maps each valid subtopic to its specific topic and bullet points."""
