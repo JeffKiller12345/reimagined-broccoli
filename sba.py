@@ -8,9 +8,9 @@ from difflib import get_close_matches
 import random
 
 API_KEYS = [
-    "AIzaSyCjjq9tVIULpIM0JSom5FUmp12_53vOChQ", # Key 1
-    "AIzaSyDsB1OMsbfeb2ve7_8w4j_CSPBMvnL1E1o",                  # Key 2
-    "AIzaSyAY7jN20dSfxqUXOEsNCmmO7_RwYjI-cqQ"                   # Key 3
+    os.getenv("GEMINI_API_KEY_1"),
+    os.getenv("GEMINI_API_KEY_2"),
+    os.getenv("GEMINI_API_KEY_3")                  # Key 3
 ]
 current_key_idx = 0
 OUTPUT_FILE = "./question_bank.json"

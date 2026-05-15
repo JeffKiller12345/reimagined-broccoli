@@ -334,5 +334,69 @@
     "feedback": "Type II pneumocytes are cuboidal cells that occupy about 5% of the alveolar surface area and are responsible for the production of surfactant, which reduces surface tension to prevent alveolar collapse. Type I pneumocytes are thin, squamous cells optimized for gas exchange. Club cells (formerly Clara cells) are found in the bronchioles, while alveolar macrophages are responsible for phagocytosis.",
     "generated_at": "2026-05-15T11:21:37.759841",
     "id": "20662187"
+  },
+  {
+    "topic": "Respiratory system.",
+    "subtopic": "Anatomical features of the respiratory system / thorax:",
+    "question": "A 65-year-old woman is undergoing a physical examination of her chest. The doctor asks her to breathe normally while they percuss the chest wall to determine the surface anatomy of the lungs. At the midaxillary line, at which rib level does the lower border of the lung typically lie during quiet respiration?",
+    "options": {
+      "A": "4th rib",
+      "B": "6th rib",
+      "C": "8th rib",
+      "D": "10th rib",
+      "E": "12th rib"
+    },
+    "correct_answer": "C",
+    "feedback": "In the midaxillary line, the lower border of the lung is typically found at the level of the 8th rib. For comparison, the lower border of the lung is at the 6th rib in the midclavicular line and the 10th rib in the scapular line. The parietal pleura extends two ribs further down at each of these lines (8th, 10th, and 12th ribs respectively).",
+    "generated_at": "2026-05-15T11:50:10.213447",
+    "id": "27448920"
+  },
+  {
+    "topic": "Respiratory system.",
+    "subtopic": "ILA 3 - Heart Failure",
+    "question": "A 75-year-old man presents with difficulty breathing when lying flat (orthopnoea). This occurs because of an accumulation of fluid in the interstitial spaces of the lungs. Under normal physiological conditions, which of the following pressures is the primary force that opposes the filtration of fluid out of the pulmonary capillaries?",
+    "options": {
+      "A": "Alveolar air pressure",
+      "B": "Interstitial hydrostatic pressure",
+      "C": "Interstitial oncotic pressure",
+      "D": "Plasma hydrostatic pressure",
+      "E": "Plasma oncotic pressure"
+    },
+    "correct_answer": "E",
+    "feedback": "E is correct because plasma oncotic (or colloid osmotic) pressure is the force exerted by plasma proteins, primarily albumin, which pulls fluid from the interstitial space back into the capillaries, thus opposing filtration. D is the primary force promoting filtration. B and C are components of the Starling equation but are normally low and do not represent the primary opposing force. A does not directly govern the fluid exchange across the capillary endothelium.",
+    "generated_at": "2026-05-15T11:51:21.282525",
+    "id": "34843680"
+  },
+  {
+    "topic": "Respiratory system.",
+    "subtopic": "ILA 4 - Chronic Obstructive Pulmonary Disease",
+    "question": "A 68-year-old man with a long history of smoking presents to his GP with worsening shortness of breath. During the physical examination, the GP observes that the patient is leaning forward and using his accessory muscles of inspiration to assist with ventilation. Which of the following muscles is an accessory muscle of inspiration that acts specifically to elevate the sternum?",
+    "options": {
+      "A": "Diaphragm",
+      "B": "External oblique",
+      "C": "Internal intercostals",
+      "D": "Rectus abdominis",
+      "E": "Sternocleidomastoid"
+    },
+    "correct_answer": "E",
+    "feedback": "The sternocleidomastoid is a key accessory muscle of inspiration that elevates the sternum to increase the anteroposterior diameter of the thorax. The diaphragm (A) is the primary muscle of inspiration, not an accessory one. The external oblique (B), rectus abdominis (D), and internal intercostals (C) are muscles used during forced expiration.",
+    "generated_at": "2026-05-15T11:54:47.209203",
+    "id": "76498721"
+  },
+  {
+    "topic": "Gastrointestinal tract and liver (GI-L).",
+    "subtopic": "Physiological features of the gut:",
+    "question": "A 45-year-old woman presents to her GP with persistent heartburn. She is prescribed a medication that inhibits the H+/K+ ATPase pump to reduce gastric acid production. Which of the following cells in the gastric mucosa is the primary site of action for this medication?",
+    "options": {
+      "A": "Chief cells",
+      "B": "Enterochromaffin-like (ECL) cells",
+      "C": "G cells",
+      "D": "Mucous neck cells",
+      "E": "Parietal cells"
+    },
+    "correct_answer": "E",
+    "feedback": "Parietal cells (also known as oxyntic cells) are located in the gastric glands of the fundus and body of the stomach and are responsible for the secretion of hydrochloric acid (HCl) via the H+/K+ ATPase pump. Chief cells secrete pepsinogen, G cells secrete gastrin, ECL cells secrete histamine, and mucous neck cells secrete alkaline mucus.",
+    "generated_at": "2026-05-15T11:56:01.597796",
+    "id": "44373228"
   }
 ]
