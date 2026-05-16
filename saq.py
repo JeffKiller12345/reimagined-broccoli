@@ -1333,56 +1333,56 @@ subtopics_for_prompt = '", "'.join(VALID_SUBTOPICS)
 BASE_SYSTEM_PROMPT = """
 You are a medical examination question writer for a UK medical school.
 Your sole purpose is to generate high-quality Short Answer Questions (SAQs) 
-for second-year medical students.
+for first-year medical students (Phase 1).
 
 RULES YOU MUST NEVER BREAK:
 - SECTION STRUCTURE: Questions must be grouped into "sections." Each section represents ONE clinical scenario (`case_context`) focusing on one main topic.
 - QUESTION COUNT & MARKS: Each section must contain 4 to 6 linked questions. The total marks for these questions within a single section MUST add up to exactly 10.
-- DIFFICULTY LEVEL: Target 2nd-year UK medical students. Focus on core, common conditions and mechanisms. Avoid post-graduate level minutiae, complex pharmacology, or obscure pathophysiology.
+- DIFFICULTY & SCOPE: Target 1st-year UK medical students. You MUST test NORMAL anatomy, physiology, and basic sciences. Do NOT test on pathological processes, clinical investigations, diagnoses, or pharmacological management.
+- CLINICAL FRAMING: Exam questions MUST be framed in a clinical context. Use a clinical scenario (e.g., a patient presenting with a visual defect or nerve injury) as the `case_context`, but the questions must ask about the *normal* underlying anatomy/physiology (e.g., identifying the specific anatomical location of the lesion in the normal pathway).
+- GP SESSIONS EXCEPTION: The only exception to the strictly 'normal' rule is for objectives explicitly labeled as "Early Years GP sessions". For these, you may test the specific clinical or systemic learning objectives provided.
 - ACCEPTABLE ANSWERS: Provide an exhaustive list of acceptable short answers (usually a few words) for the mark scheme.
-- CONTEXT: The first question in a section sets the `case_context`. Subsequent questions use the exact same `case_context`, but can introduce new clinical developments using the `additional_context` field.
+- CONTEXT: The first question in a section sets the `case_context`. Subsequent questions use the exact same `case_context`, but can introduce new clinical developments using the `additional_context` field to test further normal pathways.
 - SUBTOPICS: You must assign a specific `subtopic` to each individual question based on the syllabus objectives, and include this subtopic at the start of the `feedback` field.
 - NO PLAGIARISM: Do NOT use the clinical scenarios, diagnoses, or specific subtopics shown in the EXEMPLAR QUESTIONS. The exemplars are provided strictly for format and tone. You must invent completely new scenarios based ONLY on the provided SYLLABUS OBJECTIVES.
 - When a question requires blood results, include reference ranges in brackets.
 - You must return ONLY valid JSON. No preamble, no explanation, no markdown code fences. Just the raw JSON array.
 """
 
-# 2. The required JSON structure (Updated to match your SAQ examples + subtopic)
+# 2. The required JSON structure (Updated to match Phase 1 / Year 1 format)
 JSON_OUTPUT_FORMAT = """
 OUTPUT FORMAT — return exactly this JSON structure as a flat array of objects:
 [
   {
-    "topic": "Gastrointestinal and Hepatic Medicine",
-    "subtopic": "Acute Pancreatitis - Investigations",
-    "case_context": "A 37 year old man presents to the Emergency Department...",
+    "topic": "Neuroscience and Senses",
+    "subtopic": "Visual Pathways - Anatomy",
+    "case_context": "A 55-year-old woman presents to her GP complaining of bumping into door frames on her outer sides. Visual field testing reveals a bitemporal hemianopia. An MRI scan shows a mass compressing a structure at the base of the brain.",
     "additional_context": "",
-    "question": "List two further investigations which would help to confirm the diagnosis.",
+    "question": "Name the specific anatomical structure in the normal visual pathway where crossing nasal retinal fibres are located, which is most likely compressed in this patient.",
     "marks": 2,
     "acceptable_answers": [
-      "Serum amylase",
-      "Serum lipase",
-      "Ultrasound abdomen",
-      "CT abdomen"
+      "Optic chiasm",
+      "Optic chiasma"
     ],
-    "feedback": "[Subtopic: Acute Pancreatitis - Investigations] Serum amylase and lipase are key blood biomarkers..."
+    "feedback": "[Subtopic: Visual Pathways - Anatomy] The optic chiasm is the location where the nasal retinal fibres (responsible for the temporal visual fields) decussate. Compression here classically causes a bitemporal hemianopia."
   },
   {
-    "topic": "Gastrointestinal and Hepatic Medicine",
-    "subtopic": "Acute Pancreatitis - Aetiology",
-    "case_context": "A 37 year old man presents to the Emergency Department...",
-    "additional_context": "The patient's condition worsens overnight...",
-    "question": "List the top two commonest causes for acute pancreatitis in the UK.",
-    "marks": 2,
+    "topic": "Neuroscience and Senses",
+    "subtopic": "Visual Cortex - Physiology",
+    "case_context": "A 55-year-old woman presents to her GP complaining of bumping into door frames on her outer sides. Visual field testing reveals a bitemporal hemianopia. An MRI scan shows a mass compressing a structure at the base of the brain.",
+    "additional_context": "The visual pathway eventually terminates in the cerebral cortex to process conscious vision.",
+    "question": "State the lobe of the cerebrum that contains the primary visual cortex.",
+    "marks": 1,
     "acceptable_answers": [
-      "Alcohol",
-      "Gall stone disease"
+      "Occipital lobe",
+      "Occipital"
     ],
-    "feedback": "[Subtopic: Acute Pancreatitis - Aetiology] In the UK, the two most common causes..."
+    "feedback": "[Subtopic: Visual Cortex - Physiology] The primary visual cortex (V1) is located at the posterior pole of the occipital lobe, highly concentrated along the calcarine sulcus."
   }
 ]
 """
 
-# 3. The Builder Function (Updated to take whole-topic objectives)
+# 3. The Builder Function (Updated to focus on Year 1 requirements)
 def build_user_prompt(topic: str, subtopics: list, syllabus_objectives: list, num_sections: int = 1) -> str:
     bullet_text = "\n".join(syllabus_objectives) if syllabus_objectives else "No specific objectives provided."
     subtopics_text = "\n".join([f"- {st}" for st in subtopics]) if subtopics else "No subtopics provided."
@@ -1396,16 +1396,15 @@ SYLLABUS OBJECTIVES FOR THIS TOPIC:
 {bullet_text}
 
 Requirements:
-- Create {num_sections} section(s). Each section must be based on a single, evolving clinical scenario (`case_context`).
+- Create {num_sections} section(s). Each section must be based on a single clinical scenario (`case_context`).
 - Each section must contain 4-6 questions (e.g., Q1 to Q5).
 - The marks for the questions in a single section MUST add up to exactly 10.
 - Ensure the questions test different learning objectives from the syllabus provided above.
-- Vary what is being asked across the section (e.g., diagnosis, investigation, management, mechanism).
+- Vary what is being asked across the section, focusing heavily on Phase 1 concepts (e.g., anatomical structures, normal physiological mechanisms, basic biochemistry, or specific Early Years GP objectives).
 - The "topic" field must be exactly: "{topic}"
 - YOU MUST INCLUDE A "subtopic" KEY IN EVERY JSON OBJECT. The value MUST be chosen exactly from the 'AVAILABLE SUBTOPICS' list above.
 - The feedback must explicitly state the chosen subtopic at the beginning (e.g., "[Subtopic: <Chosen Subtopic>] Feedback text...").
 - Return the generated questions in the exact JSON array format specified. Nothing else."""
-
 
 # ── CORE FUNCTIONS ─────────────────────────────────────────────────────────────
 
@@ -1672,8 +1671,8 @@ def main(verbose=False, selected_topics=None):
             topic_idx = (topic_idx + 1) % len(unique_topics)
             
             # Brief pause to avoid hammering the API
-            print("Sleeping for 60 seconds before the next request...")
-            time.sleep(60)
+            print("Sleeping for 10 seconds before the next request...")
+            time.sleep(10)
             
         except Exception as e:
             first_run = False
@@ -1709,8 +1708,8 @@ def main(verbose=False, selected_topics=None):
                 else:
                     print(f"Switching to next API key (Index {state.key_idx})...")
             else:
-                print("Standard error, retrying in 60s...")
-                time.sleep(60)
+                print("Standard error, retrying in 10s...")
+                time.sleep(10)
             continue
 
 if __name__ == "__main__":
