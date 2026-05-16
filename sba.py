@@ -1532,8 +1532,8 @@ def main():
             subtopic_idx = (subtopic_idx + 1) % len(VALID_SUBTOPICS)
             
             # Brief pause to avoid hammering the API
-            print("Sleeping for 60 seconds before the next request...")
-            time.sleep(60)
+            print("Sleeping for 10 seconds before the next request...")
+            time.sleep(10)
             
         except Exception as e:
             first_run = False
@@ -1569,8 +1569,8 @@ def main():
                 else:
                     print(f"Switching to next API key (Index {current_key_idx})...")
             else:
-                print("Standard error, retrying in 60s...")
-                time.sleep(60)
+                print("Standard error, retrying in 10s...")
+                time.sleep(10)
             continue
 
 if __name__ == "__main__":

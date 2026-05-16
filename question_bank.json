@@ -1,0 +1,194 @@
+[
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "Genetics",
+    "question": "A 24-year-old woman is identified as a carrier for an X-linked recessive mutation during family screening. Although she carries the mutation, she does not manifest any symptoms of the condition. This is explained by the physiological process of X-inactivation (Lyonisation), where one X chromosome is silenced in each somatic cell. Which of the following describes the condensed, inactive X chromosome visible under a light microscope during interphase?",
+    "options": {
+      "A": "Barr body",
+      "B": "Centromere",
+      "C": "Euchromatin",
+      "D": "Nucleolus",
+      "E": "Telomere"
+    },
+    "correct_answer": "A",
+    "feedback": "A is correct because the Barr body is the highly condensed, transcriptionally inactive X chromosome found in the somatic cells of females, visible during interphase. B is incorrect as the centromere is the region joining two sister chromatids. C is incorrect because euchromatin refers to lightly packed, transcriptionally active DNA; the inactive X is heterochromatic. D is incorrect as the nucleolus is the site of ribosomal RNA synthesis. E is incorrect because telomeres are the repetitive DNA sequences located at the ends of chromosomes.",
+    "generated_at": "2026-05-16T09:21:38.010632",
+    "id": "61666197"
+  },
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "Cell biology",
+    "question": "A 34-year-old woman is discussed in a clinical pharmacology seminar regarding the pharmacokinetics of lipid-soluble hormones such as cortisol. Due to their chemical structure, these hormones easily cross the phospholipid bilayer of the plasma membrane. Once inside the target cell, what is the most likely mechanism by which these steroid hormones exert their primary physiological effect?",
+    "options": {
+      "A": "Binding to G-protein coupled receptors to activate adenylyl cyclase",
+      "B": "Binding to intracellular receptors to regulate gene expression",
+      "C": "Opening of ligand-gated ion channels to change membrane potential",
+      "D": "Triggering the dimerisation of cell surface receptor tyrosine kinases",
+      "E": "Using active transport to enter the mitochondria for ATP production"
+    },
+    "correct_answer": "B",
+    "feedback": "Steroid hormones are lipophilic and diffuse directly across the phospholipid bilayer of the plasma membrane. They bind to specific intracellular receptors (located in the cytoplasm or nucleus). The resulting hormone-receptor complex then acts as a transcription factor, binding to DNA to modulate the transcription of specific genes. Options A, D, and E describe mechanisms used by hydrophilic messengers (like peptide hormones) that cannot cross the membrane. Option C describes the action of certain neurotransmitters.",
+    "generated_at": "2026-05-16T09:22:46.550433",
+    "id": "14251332"
+  },
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "Energy metabolism / Biochemistry",
+    "question": "A 22-year-old student is participating in a study on the physiological response to prolonged fasting. After 48 hours without food, their liver begins significantly increasing the production of ketone bodies (acetoacetate and beta-hydroxybutyrate) to support cerebral metabolism. Which of the following molecules is the primary substrate for the synthesis of these ketone bodies?",
+    "options": {
+      "A": "Acetyl-CoA",
+      "B": "Glucose-6-phosphate",
+      "C": "Lactate",
+      "D": "Oxaloacetate",
+      "E": "Pyruvate"
+    },
+    "correct_answer": "A",
+    "feedback": "A is correct because during prolonged fasting, the liver undergoes extensive beta-oxidation of fatty acids, resulting in a high yield of Acetyl-CoA. Under these conditions, oxaloacetate (Option D) is preferentially used for gluconeogenesis to maintain blood glucose, which limits the capacity of the Krebs cycle to process the excess Acetyl-CoA; the surplus Acetyl-CoA is then used for ketogenesis. B is an intermediate of glycolysis and gluconeogenesis. C and E are precursors for gluconeogenesis rather than the direct building blocks for ketone body synthesis.",
+    "generated_at": "2026-05-16T09:23:53.446113",
+    "id": "99044544"
+  },
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "Embryo development from fertilisation to week 9",
+    "question": "A 24-year-old woman presents to her GP for an initial consultation after a positive home pregnancy test. The GP explains the early stages of development, noting that during the third week of gestation, a critical process occurs where the bilaminar embryonic disc is converted into a trilaminar disc consisting of ectoderm, mesoderm, and endoderm. Which of the following processes is the GP describing?",
+    "options": {
+      "A": "Cleavage",
+      "B": "Gastrulation",
+      "C": "Implantation",
+      "D": "Neurulation",
+      "E": "Organogenesis"
+    },
+    "correct_answer": "B",
+    "feedback": "B is correct. Gastrulation is the process occurring in week 3 where epiblast cells migrate through the primitive streak to form the three primary germ layers: ectoderm, mesoderm, and endoderm. A is incorrect because cleavage refers to the rapid mitotic divisions of the zygote immediately following fertilisation. C is incorrect as implantation describes the blastocyst embedding into the uterine wall, typically occurring in the first and second weeks. D is incorrect because neurulation is the subsequent process of forming the neural tube from the ectoderm. E is incorrect as organogenesis is the general term for the formation of organs and tissues from the germ layers, primarily occurring between weeks 3 and 8.",
+    "generated_at": "2026-05-16T09:24:59.652504",
+    "id": "74471488"
+  },
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "Cell histology and their ultrastructural components",
+    "question": "A medical student is examining a histological slide of the human forearm. They identify a medium-sized blood vessel characterized by a very prominent, 'scalloped' internal elastic lamina and a thick tunica media composed almost entirely of concentric layers of smooth muscle cells, with relatively few elastic fibres. Which of the following vessels is most likely being observed?",
+    "options": {
+      "A": "Arteriole",
+      "B": "Capillary",
+      "C": "Elastic artery",
+      "D": "Muscular artery",
+      "E": "Vein"
+    },
+    "correct_answer": "D",
+    "feedback": "D is correct because muscular (distributing) arteries are specifically characterized by a thick tunica media dominated by smooth muscle and a very distinct, often corrugated or 'scalloped' internal elastic lamina. A is incorrect because arterioles are much smaller and typically only have 1-2 layers of smooth muscle in their media. B is incorrect because capillaries consist only of a single layer of endothelial cells and a basement membrane, lacking a tunica media. C is incorrect because elastic (conducting) arteries, such as the aorta, have a tunica media dominated by fenestrated elastic lamellae rather than just smooth muscle. E is incorrect because veins have a much thinner tunica media, a less distinct internal elastic lamina, and often appear collapsed in histological sections.",
+    "generated_at": "2026-05-16T09:26:08.935890",
+    "id": "87276334"
+  },
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "Introduction to anatomical features of the human body",
+    "question": "A 68-year-old man presents to his GP with a painful, vesicular rash localized to a narrow band of skin extending from his mid-back around to his sternum on the right side. This distribution corresponds to the cutaneous innervation provided by a single spinal nerve. What is the correct anatomical term for this specific area of skin?",
+    "options": {
+      "A": "Dermatome",
+      "B": "Fascia",
+      "C": "Myotome",
+      "D": "Nerve plexus",
+      "E": "Spinal segment"
+    },
+    "correct_answer": "A",
+    "feedback": "A is correct because a dermatome is defined as the area of skin supplied by the sensory fibers of a single spinal nerve. B is incorrect because fascia is a layer of fibrous connective tissue that surrounds muscles or organs. C is incorrect because a myotome is the group of muscles innervated by the motor fibers of a single spinal nerve. D is incorrect because a nerve plexus is a complex network of intersecting nerves from multiple spinal levels (e.g., the brachial plexus). E is incorrect because a spinal segment refers to the portion of the spinal cord from which a specific pair of spinal nerves emerges, rather than the skin area it supplies.",
+    "generated_at": "2026-05-16T09:27:20.009275",
+    "id": "15910274"
+  },
+  {
+    "topic": "A. Introduction to Medicine and Medical Science (IMMS)",
+    "subtopic": "ILA 1 - Cystic Fibrosis",
+    "question": "A 2-week-old infant is diagnosed with Cystic Fibrosis after genetic testing confirms they are homozygous for the \u0394F508 mutation. This mutation involves the deletion of three nucleotides, resulting in the loss of a phenylalanine residue at position 508 of the Cystic Fibrosis Transmembrane Conductance Regulator (CFTR) protein. Which of the following best describes the physiological consequence of this specific mutation on the CFTR protein?",
+    "options": {
+      "A": "A frameshift occurs, resulting in a completely different amino acid sequence downstream",
+      "B": "The protein is translated but fails to fold correctly and is degraded in the endoplasmic reticulum",
+      "C": "The protein is correctly trafficked to the cell membrane but cannot be activated by cAMP",
+      "D": "Transcription is inhibited, meaning no mRNA is produced for translation",
+      "E": "A premature stop codon is introduced, resulting in a truncated, non-functional protein"
+    },
+    "correct_answer": "B",
+    "feedback": "The \u0394F508 mutation is a Class II mutation. Because three nucleotides (one full codon) are deleted, there is no frameshift (A is incorrect), but the loss of the phenylalanine residue causes the protein to misfold. The cell's quality control mechanisms recognise the misfolded protein and degrade it within the endoplasmic reticulum, preventing it from reaching the apical membrane (B is correct). Class III or IV mutations involve proteins that reach the membrane but don't function (C is incorrect). Class I mutations involve a lack of synthesis due to nonsense mutations or promoter issues (D and E are incorrect).",
+    "generated_at": "2026-05-16T09:28:26.400166",
+    "id": "57479394"
+  },
+  {
+    "topic": "B. Cardiovascular system",
+    "subtopic": "Principle features of haematology",
+    "question": "A 22-year-old woman accidentally cuts her finger with a kitchen knife. Hemostasis begins immediately to prevent excessive blood loss. During the platelet activation phase, several mediators are released or synthesized by the platelets. Which of the following substances is produced by activated platelets to primarily promote both further platelet aggregation and local vasoconstriction?",
+    "options": {
+      "A": "Albumin",
+      "B": "Antithrombin III",
+      "C": "Plasminogen",
+      "D": "Thromboxane A2",
+      "E": "von Willebrand factor"
+    },
+    "correct_answer": "D",
+    "feedback": "D is correct because Thromboxane A2 (TXA2) is a prostaglandin derivative synthesized by activated platelets (via the cyclooxygenase pathway) that acts as a potent platelet aggregator and a powerful local vasoconstrictor. A is incorrect as albumin is the most abundant plasma protein, primarily responsible for maintaining intravascular colloid osmotic pressure. B is incorrect because Antithrombin III is a circulating anticoagulant that inhibits thrombin and other clotting factors. C is incorrect as plasminogen is the inactive precursor of plasmin, the enzyme responsible for fibrinolysis (clot breakdown). E is incorrect because while von Willebrand factor is involved in the clotting process, its primary physiological role is mediating platelet adhesion to the damaged subendothelial collagen, not vasoconstriction.",
+    "generated_at": "2026-05-16T09:29:38.061078",
+    "id": "44386874"
+  },
+  {
+    "topic": "B. Cardiovascular system",
+    "subtopic": "Physiological features of the cardiovascular system",
+    "question": "A 22-year-old medical student is participating in a sports physiology lab. As she transitions from rest to moderate exercise on a treadmill, her cardiac output increases. According to the Frank-Starling law of the heart, which of the following best describes the intrinsic physiological mechanism responsible for increasing her stroke volume in response to an increased end-diastolic volume?",
+    "options": {
+      "A": "Increased sympathetic nerve activity increasing calcium influx via L-type channels",
+      "B": "Increased stretch of ventricular myocytes leading to increased sensitivity of troponin C to calcium",
+      "C": "Decreased peripheral resistance allowing for easier ventricular emptying",
+      "D": "Increased parasympathetic tone slowing the heart rate to allow more filling time",
+      "E": "Activation of the Bainbridge reflex via atrial stretch receptors"
+    },
+    "correct_answer": "B",
+    "feedback": "B is correct because the Frank-Starling law refers to the intrinsic ability of the heart to increase its force of contraction (and thus stroke volume) in response to an increase in venous return (end-diastolic volume). The underlying molecular mechanism involves increased stretch of the sarcomeres, which increases the sensitivity of troponin C to calcium and optimizes actin-myosin cross-bridge formation. A is incorrect because it describes an extrinsic (sympathetic) ionotropic effect, not the Frank-Starling law. C is incorrect because it describes a change in afterload. D is incorrect because parasympathetic tone decreases during exercise. E is incorrect because the Bainbridge reflex primarily affects heart rate rather than the force of ventricular contraction.",
+    "generated_at": "2026-05-16T09:30:45.204650",
+    "id": "88112557"
+  },
+  {
+    "topic": "B. Cardiovascular system",
+    "subtopic": "Embryonic development of the heart and circulation",
+    "question": "A neonatal paediatrician is performing a cardiovascular examination on a newborn infant. They recall that the adult configuration of the great vessels results from the selective regression and persistence of the embryonic aortic arches. In normal development, which of the following structures is derived from the left fourth embryonic aortic arch?",
+    "options": {
+      "A": "Arch of the aorta",
+      "B": "Common carotid artery",
+      "C": "Ductus arteriosus",
+      "D": "Internal carotid artery",
+      "E": "Pulmonary artery"
+    },
+    "correct_answer": "A",
+    "feedback": "A is correct because the left fourth aortic arch contributes to the formation of the segment of the definitive arch of the aorta (between the left common carotid and left subclavian arteries). B and D are incorrect because the third aortic arches form the common carotid and proximal part of the internal carotid arteries. C and E are incorrect because the sixth aortic arches (pulmonary arches) give rise to the proximal pulmonary arteries and, on the left, the ductus arteriosus.",
+    "generated_at": "2026-05-16T09:31:50.247243",
+    "id": "19529975"
+  },
+  {
+    "topic": "B. Cardiovascular system",
+    "subtopic": "Histology of the cardiovascular system",
+    "question": "A 62-year-old man undergoes a heart transplant. The pathology department examines the native heart tissue and notes the characteristic branching appearance of the cells and the presence of striations. Which of the following histological features is most specifically characteristic of these cardiac muscle cells compared to skeletal muscle cells?",
+    "options": {
+      "A": "Multiple peripheral nuclei",
+      "B": "Presence of intercalated discs",
+      "C": "Presence of T-tubules",
+      "D": "Presence of sarcomeres",
+      "E": "Spindle-shaped cell morphology"
+    },
+    "correct_answer": "B",
+    "feedback": "B is correct because intercalated discs are specialized junctional complexes unique to cardiac muscle that facilitate mechanical and electrical coupling between cells. Option A is incorrect as multiple peripheral nuclei are characteristic of skeletal muscle; cardiac muscle cells typically have one or two centrally located nuclei. Options C and D are incorrect because both skeletal and cardiac muscle are striated, meaning they both contain sarcomeres and T-tubules. Option E is incorrect as spindle-shaped cells are characteristic of smooth muscle, which lacks striations.",
+    "generated_at": "2026-05-16T09:33:10.669649",
+    "id": "54336314"
+  },
+  {
+    "topic": "B. Cardiovascular system",
+    "subtopic": "Anatomical features of the cardiovascular system",
+    "question": "A 45-year-old woman is being reviewed following a thoracic surgical procedure. The surgeon is concerned about potential damage to the nerves passing through the mediastinum. In the normal anatomy of the thorax, which of the following correctly describes the relationship of the phrenic and vagus nerves to the hilum (root) of the lung?",
+    "options": {
+      "A": "The phrenic nerve passes anterior to the hilum, while the vagus nerve passes posterior to the hilum",
+      "B": "The phrenic nerve passes posterior to the hilum, while the vagus nerve passes anterior to the hilum",
+      "C": "Both the phrenic and vagus nerves pass anterior to the hilum",
+      "D": "Both the phrenic and vagus nerves pass posterior to the hilum",
+      "E": "The phrenic nerve passes through the hilum, while the vagus nerve passes lateral to the hilum"
+    },
+    "correct_answer": "A",
+    "feedback": "A is correct because in normal anatomy, the phrenic nerve (arising from C3, C4, C5) descends through the mediastinum anterior to the hilum of the lung on its way to the diaphragm. The vagus nerve (Cranial Nerve X) passes posterior to the hilum of the lung. B is incorrect as it reverses the relationship. C and D are incorrect because the nerves take distinct paths relative to the root of the lung. E is incorrect as these nerves do not pass through the hilum (which contains the bronchi, pulmonary vessels, and lymphatics).",
+    "generated_at": "2026-05-16T09:34:20.131297",
+    "id": "85172249"
+  }
+]
