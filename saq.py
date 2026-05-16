@@ -1182,11 +1182,12 @@ OUTPUT FORMAT — return exactly this JSON structure as a flat array of objects:
     "subtopic": "Neuroanatomy",
     "case_context": "A 55-year-old woman presents to her GP complaining of bumping into door frames on her outer sides. Visual field testing reveals a bitemporal hemianopia. An MRI scan shows a mass compressing a structure at the base of the brain.",
     "additional_context": "",
-    "question": "Name the specific anatomical structure in the normal visual pathway where crossing nasal retinal fibres are located, which is most likely compressed in this patient.",
-    "marks": 2,
+    "question": "Visual signals pass through several structures on their way from the optic nerve to the primary visual cortex. Name these structures.",
+    "marks": 3,
     "acceptable_answers": [
       "Optic chiasm",
-      "Optic chiasma"
+      "Optic radiation", "Meyer’s loop", "Baum’s loop",
+      "Lateral geniculate body", "Optic tract", "Visual area of thalamus"
     ],
     "feedback": "[Subtopic: Neuroanatomy] The optic chiasm is the location where the nasal retinal fibres (responsible for the temporal visual fields) decussate. Compression here classically causes a bitemporal hemianopia."
   },
