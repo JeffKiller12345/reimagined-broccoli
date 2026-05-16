@@ -3,7 +3,7 @@ from google import genai
 import json
 import os
 import time
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
 from difflib import get_close_matches
 import re
 import random
@@ -17,16 +17,19 @@ load_dotenv()
 API_KEYS = [
     os.getenv("GEMINI_API_KEY_1"),
     os.getenv("GEMINI_API_KEY_2"),
-    os.getenv("GEMINI_API_KEY_3")                  # Key 3
+    os.getenv("GEMINI_API_KEY_3"),
 ]
+
 @dataclass
 class APIState:
     key_idx: int = 0
     model_idx: int = 0
     models: list = field(default_factory=lambda: ["gemini-3-flash-preview", "gemini-2.5-flash"])
+
 OUTPUT_FILE = "./saqquestionbank.json"
 CSV_OUTPUT_FILE = "./saqsupabase_import.csv"
 MINERVA_FILE = "./saqbrosolongmanualbank.json"
+
 SYLLABUS = """
 A. Introduction to Medicine and Medical Science (IMMS)
 Genetics
@@ -157,9 +160,9 @@ Physiological features of the cardiovascular system
 ● How sympathetic and parasympathetic nervous systems affect the heart 
 ● Determinants of blood flow, blood pressure and cardiac output 
 ● Stroke volume 
-● Ohm’s law 
+● Ohm's law 
 ● Pulse pressure 
-● Poiseuille’s and blood flow 
+● Poiseuille's and blood flow 
 ● Blood pressure measurement 
 ● Mean arterial pressure 
 ● Local, neural, and hormonal vasodilators and vasoconstrictors 
@@ -237,7 +240,7 @@ Physiological features of the respiratory system
 ■ Bronchoconstriction vs. dilation 
 ■ Nicotinic and muscarinic receptors 
 ■ Sympathetic and parasympathetic stimulation 
-● Poiseuille’s law in relation to the airways 
+● Poiseuille's law in relation to the airways 
 ● Lung Physiology 1 
 ○ Static lungs 
 ○ Rib movement and the respiratory pump 
@@ -302,7 +305,7 @@ Immune features of the respiratory system
 ● Mechanism of anaphylaxis 
 Lungs in wild environments 
 ● Units of gas and atmospheric pressure 
-● Boyle’s Law [Dalton’s law, Henry’s law] 
+● Boyle's Law [Dalton's law, Henry's law] 
 ● Diving with the lungs and dive types 
 ● Pulmonary Oxygen Toxicity 
 ● CNS toxicity 
@@ -324,7 +327,7 @@ First breath
 ● Physiology 
 ● Adaptive changes at birth 
 ● Physics 
-● Laplace’s law and the importance of surfactant 
+● Laplace's law and the importance of surfactant 
 ● Common abnormalities 
 ● Surfactant disease of the newborn 
 Embryonic development of the respiratory system
@@ -498,13 +501,13 @@ Neuroanatomy
 ● Ascending and descending spinal tracts, their courses, functions, and spatial locations 
 ● Neuroradiology, imaging modalities and planes of section 
 ● How the main cortical and deep brain structures appear on CT and MRI including the brainstem 
-● Neurological, neurosurgical and neuropsychological clinical relevance of anatomy studied (this will not be examined in Phase 1, but provides context to the ‘normative systems’ content and is vital content for later Phases and your future clinical careers) 
+● Neurological, neurosurgical and neuropsychological clinical relevance of anatomy studied 
 Neurophysiology 
 ● Structure of different axons 
 ● Axonal sheath differences in CNS and PNS 
 ● Role of neuroglia (astrocytes, oligodendrocytes [Schwann cells], microglia and ependyma) 
 ● Excitatory, inhibitory and modulatory synapses 
-● Structure of a ‘model’ neuron and be able to draw a labelled diagram 
+● Structure of a 'model' neuron and be able to draw a labelled diagram 
 ● Resting potential and how it is established 
 ● Post-synaptic potentials 
 ● Action potential and how it is generated 
@@ -545,7 +548,7 @@ Psychiatry and psychological & sociological principles in behavioural neuroscien
 ● Definitions and current psychological understanding of pain and its expression (particularly chronic pain) 
 ● Biopsychosocial factors affecting pain generation and awareness 
 ● Common recommended approaches to manage pain 
-● Role of ‘chemical imbalance’ in depression 
+● Role of 'chemical imbalance' in depression 
 ● Role of stress hormones and effect on brain plasticity 
 ● Functional neuroimaging findings in depression 
 Neurohistology 
@@ -737,47 +740,47 @@ ILA 10 - Distal Radius Fracture
 ● The importance of patient confidentiality in healthcare settings. 
 ● The principles of medical privacy, when information can be shared, and the professional responsibilities of healthcare workers in protecting patient information.
 H. Prescribing 
-Use of FP10 prescriptions in Primary Care (linked to ‘Generalism and holistic patient care’ - EYGP session 1) 
+Use of FP10 prescriptions in Primary Care (linked to 'Generalism and holistic patient care' - EYGP session 1) 
 ● FP10 prescriptions 
 ● Minimum requirements to produce a valid and legal prescription 
 ● How patients may pay for their prescriptions 
 ● Abbreviations that may be used on prescriptions 
-Legal restrictions around prescribing (linked to ‘Pregnancy’ - EYGP session 2) 
+Legal restrictions around prescribing (linked to 'Pregnancy' - EYGP session 2) 
 ● Difference between a drug and a medicine 
 ● Which healthcare professionals are able to prescribe 
 ● Legal classifications of medicines (GSL, P and POM) and how each can be obtained by a patient 
-Routes of drug administration and medicine formulations (linked to ‘Ischaemic heart disease / Health inequalities’ - EYGP session 3) 
+Routes of drug administration and medicine formulations (linked to 'Ischaemic heart disease / Health inequalities' - EYGP session 3) 
 ● Different routes of drug administration 
 ● Local and systemic drug administration 
 ● Formulation of medicines for different routes of administration 
-Sustainable prescribing (linked to ‘Asthma / Sustainable healthcare’ - EYGP session 4) 
+Sustainable prescribing (linked to 'Asthma / Sustainable healthcare' - EYGP session 4) 
 ● How the prescribing of medicines can negatively impact the environment 
 ● Steps that can be taken to reduce the environmental impact of medicines use 
-Non-pharmacological interventions (linked to ‘Irritable bowel syndrome (IBS) / Functional disorders’ - EYGP session 5) 
+Non-pharmacological interventions (linked to 'Irritable bowel syndrome (IBS) / Functional disorders' - EYGP session 5) 
 ● Non-pharmacological treatment options 
 ● Benefits of non-pharmacological treatment options 
 ● Barriers to non-pharmacological treatment options 
-Prescribing Controlled Drugs (linked to ‘Neurodiversity’ - EYGP session 6) 
+Prescribing Controlled Drugs (linked to 'Neurodiversity' - EYGP session 6) 
 ● Legal classification of controlled drugs (Schedule 1 to 5) 
 ● Why drugs may be classified as a CD 
 ● Prescription requirements for schedule 2 and 3 CDs 
-National processes for medicines management (linked to ‘Epilepsy’ - EYGP session 7) 
+National processes for medicines management (linked to 'Epilepsy' - EYGP session 7) 
 ● Role of the MHRA and NICE in making newly developed medicines available for prescribing on the NHS 
 ● Role of local drug formularies 
-Communication and patient counselling (linked to ‘Skin / Fitness to practice’ - EYGP session 8) 
+Communication and patient counselling (linked to 'Skin / Fitness to practice' - EYGP session 8) 
 ● Where patients might access information about their medicines 
 ● What a patient should be made aware of when starting a new medicine 
 ● Different methods for providing information to patients about their medicines 
-Adherence and non-adherence (linked to ‘Chronic kidney disease (CKD) / Accessing healthcare for non-English speaking populations’ - EYGP session 9) 
+Adherence and non-adherence (linked to 'Chronic kidney disease (CKD) / Accessing healthcare for non-English speaking populations' - EYGP session 9) 
 ● Issue of poor medicines adherence 
 ● Reasons for poor medicines adherence 
 ● Consequences of poor adherence 
 ● Strategies for preventing poor adherence 
-Medicines supply chain (linked to ‘Menopause’ - EYGP session 10) 
+Medicines supply chain (linked to 'Menopause' - EYGP session 10) 
 ● Medicines supply chain 
 ● What causes widespread drug shortages 
 ● Impact of drug shortages on patients and the healthcare system 
-Drugs associated with dependence and withdrawal symptoms (linked to ‘Osteoarthritis / Chronic pain - EYGP session 11) 
+Drugs associated with dependence and withdrawal symptoms (linked to 'Osteoarthritis / Chronic pain - EYGP session 11) 
 ● Types of medicines associated with dependence or withdrawal symptoms 
 ● Risks associated with strong opiates in chronic pain 
 ● Drug classes associated with increased risk of dependence or harm 
@@ -846,18 +849,18 @@ Critical appraisal
 ● How to review and evaluate the quality of evidence 
 ● Use of critical appraisal tools 
 K. Early Years General Practice (EYGP)
-Session 1 ‘Generalism and holistic patient care’ (during IMMS block) 
+Session 1 'Generalism and holistic patient care' (during IMMS block) 
 ● Role of a general practitioner and differences between primary and secondary care. 
-● ‘Person centred care’ and examples of how this may look in practice. 
+● 'Person centred care' and examples of how this may look in practice. 
 ● Correct handwashing technique. 
 ● Giving constructive feedback to a colleague. 
-Session 2 ‘Pregnancy’ (during IMMS block) 
-● Factors (e.g. past medical history, family history) which would make a pregnancy ‘higher risk’, and explain measures used to reduce these risks if available. 
+Session 2 'Pregnancy' (during IMMS block) 
+● Factors (e.g. past medical history, family history) which would make a pregnancy 'higher risk', and explain measures used to reduce these risks if available. 
 ● Dietary and lifestyle advice to a pregnant woman. 
 ● Routine antenatal care in the UK, including what happens in a routine midwife appointment and what scans / blood tests are routinely offered. 
 ○ Additional tests offered to screen for and diagnose foetal genetic abnormalities. 
 ● Domestic abuse, possible risk factors / indicators, and the HARK screening tool. 
-Session 3 ‘Ischaemic heart disease / Health inequalities’ (during Cardiovascular block) 
+Session 3 'Ischaemic heart disease / Health inequalities' (during Cardiovascular block) 
 ● Principles of primary and secondary prevention, particularly in relation to cardiovascular disease 
 ● Qrisk3 score and its use in the primary prevention of CVD. 
 ● Modifiable and non-modifiable risk factors for ischaemic heart disease 
@@ -865,91 +868,261 @@ Session 3 ‘Ischaemic heart disease / Health inequalities’ (during Cardiovasc
 ● Radial pulse and measure blood pressure with a manual sphygmomanometer. 
 ● Investigations (including blood tests and imaging) used to assess cardiac / chest pain and why. 
 ● Social inequalities impacting cardiovascular health in the UK. 
-Session 4 ‘Asthma / Sustainable healthcare’ (during Respiratory block) 
+Session 4 'Asthma / Sustainable healthcare' (during Respiratory block) 
 ● Diagnosis of asthma, and how to use an inhaler/ spacer device. 
 ● Communication skills required when consulting with a child or adolescent / with a parent in the room. 
 ● Different types of inhalers available and the pros and cons of each - particularly focusing on the environmental impact of different treatment options. 
 ● Socio-economic, environmental and cultural factors that impact the prevalence and incidence of childhood asthma. 
-Session 5 ‘Irritable bowel syndrome (IBS) / Functional disorders’ (during GI-Liver block) 
+Session 5 'Irritable bowel syndrome (IBS) / Functional disorders' (during GI-Liver block) 
 ● Differential diagnosis for diarrhoea, and identify important questions to ask to narrow this down. 
 ● Appropriate investigations for diarrhoea (stool, blood, imaging), and give directions to a patient for how to take a stool sample. 
-● What a ‘functional illness’ is, and be able to explain the diagnosis of Irritable Bowel Syndrome to a patient without using any medical jargon. 
+● What a 'functional illness' is, and be able to explain the diagnosis of Irritable Bowel Syndrome to a patient without using any medical jargon. 
 ● Basic management of Irritable Bowel Syndrome, including lifestyle, diet and medications used. 
-● Stigma surrounding functional illnesses such as chronic fatigue syndrome, fibromyalgia, and the impact of persistent physical symptoms on a patient’s quality of life / mental health. 
-Session 6 ‘Neurodiversity’ (during Neurosciences block) 
+● Stigma surrounding functional illnesses such as chronic fatigue syndrome, fibromyalgia, and the impact of persistent physical symptoms on a patient's quality of life / mental health. 
+Session 6 'Neurodiversity' (during Neurosciences block) 
 ● The ways in which neurodiversity (specifically ADHD and autism) may present and how these may differ according to age and gender. 
 ● How neurodiversity traits may affect a patient and/ or their family. (e.g. school life, employment, relationships, social interactions etc.) 
 ● Different approaches for consulting with autistic patients, including adapting communication style and the physical environment. 
 ● The support services available for neurodivergent (ND) individuals/families in South Yorkshire/North Derbyshire. 
 ● Treatment options for ADHD. 
-Session 7 ‘Epilepsy’ (during Neurosciences block) 
+Session 7 'Epilepsy' (during Neurosciences block) 
 ● Differential diagnosis for falls and identify key features in the history which will help to narrow this down. 
-● How a diagnosis of epilepsy may impact on the practicalities of a patient’s life (e.g. driving, employment, family planning, social activities). 
+● How a diagnosis of epilepsy may impact on the practicalities of a patient's life (e.g. driving, employment, family planning, social activities). 
 ● How epilepsy is perceived in different cultures, the stigma that can be associated with epilepsy, and the behavioural/ mental health consequences of receiving a diagnosis. 
-Session 8 ‘Skin / Fitness to practice’ (during SUGER block) 
+Session 8 'Skin / Fitness to practice' (during SUGER block) 
 ● A list of important questions to ask a patient who presents with probable eczema, including symptoms, risk factors, exacerbating factors and psychosocial impact. 
 ● Basic pathophysiology of eczema to a patient without using jargon, and describe how to apply topical treatments correctly (and in the correct quantities). 
 ● How skin conditions present differently for patients with different skin colours, with particular focus on how eczema presents in black and brown skin. 
 ● Ethical/medico legal issues around self-prescribing and prescribing for friends and family. 
-● When, where and why medical professionals should seek help for ill health (with reference to the GMC ‘fitness to practice’ guidance). 
-Session 9 ‘Chronic kidney disease (CKD) / Accessing healthcare for non-English speaking populations.’ (during SUGER block) 
+● When, where and why medical professionals should seek help for ill health (with reference to the GMC 'fitness to practice' guidance). 
+Session 9 'Chronic kidney disease (CKD) / Accessing healthcare for non-English speaking populations.' (during SUGER block) 
 ● Risk factors for developing CKD and list relevant investigations used when diagnosing and monitoring the condition. 
 ● Management options for end stage renal failure including different types of renal replacement therapy. Use a person centred approach to deciding which option may be best for a particular patient. 
 ● Different options available for translating in health care settings and the pros and cons of each. 
 ● Barriers to healthcare that may exist for patients where English is not their first language, and consider strategies to help patients from minority ethnic groups engage more with healthcare services. 
-Session 10 ‘Menopause’ (during SUGER block) 
+Session 10 'Menopause' (during SUGER block) 
 ● Menopause and perimenopause, and list the various symptoms that a (peri-) menopausal patient may experience (e.g. vasomotor, genitourinary, psychological). 
 ● Impact that menopause may have on a patient from a personal, social and economic perspective. 
 ● How ethnicity can affect menopause and its management. 
 ● Risks and benefits of HRT, and identify contraindications to starting systemic treatment. 
 ● Types of HRT available, the modes of delivery, and why one method might be chosen over another. 
-Session 11 ‘Osteoarthritis / Chronic pain’ (during MSK block) 
+Session 11 'Osteoarthritis / Chronic pain' (during MSK block) 
 ● WHO pain ladder, and the main side effects of different analgesic options. Counsel a patient regarding the side effects of long term opioid use. (You may wish to combine this objective with the one above or below, and include another learning objective selected by the group) 
 ● Counsel a patient regarding treatment of chronic pain (i.e. without long term opioids) and offer suggestions for non-pharmacological approaches to pain management 
-● Impact of pain on a patient’s activities of daily living, quality of life and mental wellbeing; be able to offer some solutions for how to cope with these, including signposting to other agencies / members of the MDT. 
+● Impact of pain on a patient's activities of daily living, quality of life and mental wellbeing; be able to offer some solutions for how to cope with these, including signposting to other agencies / members of the MDT. 
 ● Racial stereotyping in respect to pain management. 
 """
 
-def get_prompt_examples(target_topic, json_filepath=MINERVA_FILE, num_sections=2):
-    """Fetches full SAQ sections from DIFFERENT topics to prevent copying."""
+# ── NORMALISATION (defined first; used by everything below) ───────────────────
+
+def normalize(text: str) -> str:
+    """Strip bullets, punctuation, extra spaces, and lowercase for fuzzy comparison."""
+    text = re.sub(r'^[●•o\-\s]+', '', text)
+    text = re.sub(r'[^\w\s]', '', text)
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip().lower()
+
+
+# ── TOPIC / SUBTOPIC CONSTANTS (identical to SBA generator) ──────────────────
+
+KNOWN_TOPICS = [
+    "A. Introduction to Medicine and Medical Science (IMMS)",
+    "B. Cardiovascular system",
+    "C. Respiratory system",
+    "D. Gastrointestinal tract and liver (GI-L)",
+    "E. Neuroscience",
+    "F. Skin, UroGenital, Endocrine and Reproduction (SUGER)",
+    "G. Musculoskeletal (MSK)",
+    "H. Prescribing",
+    "I. Public health",
+    "J. Critical numbers",
+    "K. Early Years General Practice (EYGP)",
+]
+
+# Normalised set of top-level block headers to exclude from subtopic extraction.
+BLOCK_HEADERS = set(normalize(t) for t in KNOWN_TOPICS)
+
+# A few variant spellings that may appear in the raw syllabus text.
+for _h in [
+    "A. Introduction to Medicine and Medical Science (IMMS)",
+    "B. Cardiovascular system",
+    "C. Respiratory system",
+    "D. Gastrointestinal tract and liver (GI-L)",
+    "E. Neuroscience",
+    "F. Skin, UroGenital, Endocrine and Reproduction (SUGER)",
+    "G. Musculoskeletal (MSK)",
+    "H. Public health",
+    "I. Prescribing",
+    "J. Critical numbers",
+    "K. Early Years General Practice (EYGP)",
+]:
+    BLOCK_HEADERS.add(normalize(_h))
+
+
+# ── SYLLABUS PARSING (identical logic to SBA generator) ──────────────────────
+
+def extract_subtopics(syllabus: str) -> list:
+    """Extract subtopic headings from the syllabus text."""
+    lines = []
+    for line in syllabus.splitlines():
+        line = line.strip()
+        if (not line
+                or line in ["●", "o"]
+                or line.startswith("Dr NR Chapman")
+                or re.match(r"^Page \d+", line)):
+            continue
+        lines.append(line)
+
+    # Merge continuation lines.
+    merged = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        while (
+            i + 1 < len(lines)
+            and not line.endswith((".", ":", "?", "!"))
+            and not lines[i + 1].startswith("●")
+            and not lines[i + 1].startswith("o ")
+            and not re.match(r"^\d+\)", lines[i + 1])
+            and not lines[i + 1][0].isupper()
+        ):
+            i += 1
+            line = line + " " + lines[i]
+        merged.append(line)
+        i += 1
+
+    # A non-bullet line whose next non-empty neighbour is a bullet is a subtopic.
+    subtopics = []
+    for i, line in enumerate(merged):
+        if line.startswith("●") or line.startswith("o "):
+            continue
+        if normalize(line) in BLOCK_HEADERS:
+            continue
+        for j in range(i + 1, min(i + 3, len(merged))):
+            if merged[j].startswith("●") or merged[j].startswith("o "):
+                subtopics.append(line)
+                break
+
+    return subtopics
+
+
+# Build canonical list dynamically from the current syllabus.
+CANONICAL_SUBTOPICS: list = extract_subtopics(SYLLABUS)
+_normalized_canonical: dict = {normalize(s): s for s in CANONICAL_SUBTOPICS}
+
+
+def validate_subtopics(extracted: list) -> list:
+    """Map extracted subtopics to their canonical spelling via fuzzy match."""
+    norm_keys = list(_normalized_canonical.keys())
+    validated = []
+    for subtopic in extracted:
+        key = normalize(subtopic)
+        matches = get_close_matches(key, norm_keys, n=1, cutoff=0.85)
+        if matches:
+            validated.append(_normalized_canonical[matches[0]])
+        else:
+            print(f"  [SKIPPED] No canonical match for: {subtopic!r}")
+    return validated
+
+
+VALID_SUBTOPICS: list = validate_subtopics(CANONICAL_SUBTOPICS)
+
+
+def get_syllabus_data(syllabus: str, valid_subtopics: list) -> dict:
+    """Parse the syllabus and map each valid subtopic to its topic and bullet points."""
+    lines = []
+    for line in syllabus.splitlines():
+        line = line.strip()
+        if (not line or line in ["●", "o"]
+                or line.startswith("Dr NR Chapman")
+                or re.match(r"^Page \d+", line)):
+            continue
+        lines.append(line)
+
+    merged = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        while (
+            i + 1 < len(lines)
+            and not line.endswith((".", ":", "?", "!"))
+            and not lines[i + 1].startswith("●")
+            and not lines[i + 1].startswith("o ")
+            and not re.match(r"^\d+\)", lines[i + 1])
+            and not lines[i + 1][0].isupper()
+        ):
+            i += 1
+            line += " " + lines[i]
+        merged.append(line)
+        i += 1
+
+    data = {sub: {"topic": "General", "bullets": []} for sub in valid_subtopics}
+    current_topic = "General"
+
+    norm_valid = {normalize(s): s for s in valid_subtopics}
+    norm_topics = {normalize(t): t for t in KNOWN_TOPICS}
+
+    current_subtopic = None
+    for line in merged:
+        norm_line = normalize(line)
+        if norm_line in norm_topics:
+            current_topic = norm_topics[norm_line]
+            current_subtopic = None
+            continue
+
+        if line.startswith("●") or line.startswith("o "):
+            if current_subtopic:
+                data[current_subtopic]["bullets"].append(line)
+        else:
+            if norm_line in norm_valid:
+                current_subtopic = norm_valid[norm_line]
+                data[current_subtopic]["topic"] = current_topic
+            else:
+                current_subtopic = None
+
+    return data
+
+
+SYLLABUS_DATA: dict = get_syllabus_data(SYLLABUS, VALID_SUBTOPICS)
+
+
+# ── EXEMPLAR LOADER ───────────────────────────────────────────────────────────
+
+def get_prompt_examples(target_topic: str, json_filepath: str = MINERVA_FILE,
+                        num_sections: int = 2) -> str:
+    """Fetch full SAQ sections from DIFFERENT topics to prevent copying."""
     try:
         with open(json_filepath, 'r', encoding='utf-8') as f:
             all_questions = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        return "Error: Could not read the Minerva JSON file."
+        return "[]"
 
-    # 1. Group questions into sections based on their case_context
-    sections_by_context = {}
+    # Group questions by case_context (each context = one section).
+    sections_by_context: dict = {}
     for q in all_questions:
         context = q.get("case_context", "Unknown Context")
-        if context not in sections_by_context:
-            sections_by_context[context] = []
-        sections_by_context[context].append(q)
+        sections_by_context.setdefault(context, []).append(q)
 
-    # 2. FILTER OUT the target_topic AND any sections whose subtopics overlap
-    # with the target topic's subtopics (prevents exemplars bleeding into EYGP etc.)
+    # Build a set of keywords for the target topic so we can exclude similar sections.
+    target_keywords: set = set()
+    for sub in VALID_SUBTOPICS:
+        if SYLLABUS_DATA.get(sub, {}).get("topic") == target_topic:
+            target_keywords.update(
+                w.lower() for w in re.split(r'\W+', sub) if len(w) >= 3
+            )
+
     target_subtopics = {
         normalize(sub) for sub in VALID_SUBTOPICS
         if SYLLABUS_DATA.get(sub, {}).get("topic") == target_topic
     }
 
-    target_keywords = set()
-    for sub in VALID_SUBTOPICS:
-        if SYLLABUS_DATA.get(sub, {}).get("topic") == target_topic:
-            # Split each subtopic name into individual words (3+ chars) as keywords
-            target_keywords.update(
-                w.lower() for w in re.split(r'\W+', sub) if len(w) >= 3
-            )
-
     other_sections = []
     for context, q_list in sections_by_context.items():
         if q_list[0].get("topic") == target_topic:
             continue
-        # Exclude by subtopic name overlap
         section_subtopics = {normalize(q.get("subtopic", "")) for q in q_list}
         if section_subtopics & target_subtopics:
             continue
-        # Exclude by keyword presence in question text fields
         section_text = " ".join(
             " ".join([
                 q.get("case_context", ""),
@@ -963,373 +1136,25 @@ def get_prompt_examples(target_topic, json_filepath=MINERVA_FILE, num_sections=2
             continue
         other_sections.append(q_list)
 
-    # Fallback: if we somehow only have this one topic in the bank, use all sections
-    pool_to_choose_from = other_sections if other_sections else list(sections_by_context.values())
+    pool = other_sections if other_sections else list(sections_by_context.values())
 
-    selected_questions = []
-    selected_section_count = 0
-    
-    # 3. Fetch random entire sections from the different topics
-    while selected_section_count < num_sections and pool_to_choose_from:
-        chosen_sec = random.choice(pool_to_choose_from)
-        selected_questions.extend(chosen_sec) # Flatten into a single list of questions
-        pool_to_choose_from.remove(chosen_sec)
-        selected_section_count += 1
+    selected: list = []
+    chosen_count = 0
+    while chosen_count < num_sections and pool:
+        section = random.choice(pool)
+        selected.extend(section)
+        pool.remove(section)
+        chosen_count += 1
 
-    # 4. Patch the subtopic for Gemini 2.5
-    for q in selected_questions: 
+    for q in selected:
         if "subtopic" not in q:
             q["subtopic"] = "Example Subtopic (Must Be Chosen From List)"
 
-    if not selected_questions:
-        return "[]"
-        
-    return json.dumps(selected_questions, indent=2)
-# ── CANONICAL SUBTOPIC LIST ────────────────────────────────────────────────────
-# <<< ADD THIS ENTIRE BLOCK
-CANONICAL_SUBTOPICS = [
-"Describe the nature of disease",
-"Describe the process of acute inflammation",
-"Describe the process of chronic inflammation",
-"Describe the process of atherosclerosis formation",
-"Describe the process of haemostasis",
-"Describe the processes of apoptosis and necrosis",
-"Describe the process of cell and tissue growth",
-"Describe the process of carcinogenesis",
-"Describe the processes of how cancer spreads within the body",
-"Describe the process of tumour classification",
-"Describe the fundamental aspects of cancer treatments",
-"Describe the processes of tissue healing and repair",
-"Describe the process of aging and the role of the autopsy in determining cause of death",
-"List and describe the function of the main cellular and humoral components of the immune system",
-"Explain the main features of innate and adaptive immunity, the key differences between them, and how they work together to create our immune system",
-"Describe hypersensitivity and explain the key features of an allergic response",
-"Explain how immunity changes with ageing and the impact of this on our susceptibility to disease",
-"Describe the principles of immunotherapy in the management of cancer and inflammatory diseases",
-"Describe the principles of immunisation and give examples of the different vaccines available and their benefits and drawbacks",
-"Describe how immunological processes develop and become manifest and the consequences for the major organ systems detailed in Phase 2a",
-"Describe the key features of pharmacodynamics of drug action (the biochemical and physiological effects of drugs)",
-"Describe the key features of pharmacokinetics (the administration and subsequent fate of administered substances) and pharmacogenomics",
-"Describe the mechanism of action and list examples of the following classes of drugs: Cholinergic, Adrenergic, Analgesics (opioids)",
-"Define the following terms and explain their implications for prescribing and clinical management: Adverse drug reactions, Drug interactions",
-"Describe the principles of drug discovery and development",
-"Prescription Writing Early Years GP Prescribing Tasks",
-"Describe the biology and classification of micro-organisms",
-"Gram-positive pathogens",
-"Gram-negative pathogens",
-"Mycobacteria",
-"Tuberculosis (TB)",
-"Protozoa and Helminths",
-"Immunisation and Notifiable Infectious Diseases (Cross Ref to Public Health)",
-"Meningococcal infections: An important example of vaccine-preventable notifiable disease (Cross Ref to Public Health)",
-"Viruses",
-"Mycology and antifungals",
-"Antivirals",
-"Antibiotics",
-"Healthcare-acquired infections",
-"HIV Symposium",
-"Full blood count",
-"Anaemia",
-"Haemoglobinopathies and red cell disorders",
-"Bleeding disorders",
-"Anticoagulation and thrombosis",
-"Malignant haematology",
-"Blood transfusion",
-"Haematology emergencies",
-"Apply theoretical frameworks of sociology to explain the varied responses of individuals, groups and societies to disease",
-"Explain sociological factors that contribute to illness, the course of the disease and the success of treatment − including issues relating to health inequalities, the links between occupation and health and the effects of poverty and affluence",
-"Explain and apply the basic principles of communicable disease control in hospital and community settings",
-"Evaluate and apply epidemiological data in managing healthcare for the individual and the community",
-"Critically appraise the results of relevant diagnostic, prognostic and treatment trials and other qualitative and quantitative studies as reported in the medical and scientific literature",
-"Identify appropriate strategies for managing patients with dependence issues and other demonstrations of self-harm",
-"Discuss psychological aspects of behavioural change and treatment compliance",
-"Apply scientific method and approaches to medical research",
-"Obstructive lung diseases",
-"Restrictive lung diseases",
-"Pleural disease",
-"Lung cancer",
-"Respiratory infections (overlap with microbiology/immunology/public health teaching)",
-"Community acquired pneumonia",
-"Influenza and pandemics",
-"Occupational health and lung disorders",
-"Palliative care in respiratory disease",
-"Importance of MSK conditions",
-"Fractures",
-"Inherited / Autoimmune Connective tissue disorders",
-"The inflamed joint and Gout",
-"Spondyloarthropathy",
-"Degenerative joint",
-"Soft tissue MSK disorders",
-"Osteoporosis & bone disorders",
-"MSK infections",
-"Back pain",
-"Anatomy and Physiology",
-"Appetite",
-"Diabetes Mellitus – Part 1",
-"Diabetes Mellitus – Part 2",
-"Diabetes Mellitus – Part 3",
-"Diabetes Mellitus – Part 4",
-"Diabetes Mellitus – Part 5",
-"Diabetes Mellitus – Part 6",
-"Overview - Functional Anatomy and Physiology",
-"Thyroid",
-"Pituitary Hormones (Part 1; Anterior) - Regulation and Presentation of Pituitary Disease",
-"Non-functioning tumours and pituitary hormone testing",
-"Acromegaly and Prolactin",
-"Pituitary Hormones – (Part 2; Posterior) - Water Balance, Hyponatraemia, Vasopressin Deficiency and Resistance (Diabetes Insipidus)",
-"Circadian Rhythms, Adrenal Insufficiency and Cortisol Excess (Cushings syndrome)",
-"Endocrine Hypertension",
-"Parathyroid and Disorders of Calcium Metabolism",
-"Puberty",
-"Reproductive Endocrinology",
-"Anticoagulants and Antiplatelets",
-"Deep Vein Thrombosis (DVT) and Pulmonary Embolism (PE)",
-"PVD",
-"Atheroma",
-"Chronic coronary syndrome",
-"Acute coronary syndrome",
-"ECG Parts 1 and 2",
-"Inherited cardiac conditions",
-"Cardiovascular Pharmacology Parts 1 and 2",
-"Hypertension",
-"Heart failure",
-"Pericarditis",
-"Valvular disease",
-"Structural heart defects",
-"Infective endocarditis",
-"Clinically-Oriented Neuroanatomy",
-"Dementia Neurology",
-"Stroke Neurology",
-"CNS Infections",
-"Parkinsons disease and its differential diagnosis",
-"Neurosurgery: An Introductory Lecture",
-"Brain tumours",
-"Neuro-rehabilitation",
-"Consciousness: its assessment and common disorders",
-"Cerebellar disease",
-"Neuromuscular and muscular disorders",
-"Multiple Sclerosis",
-"Headaches",
-"Spinal cord disorders",
-"Epilepsy",
-"Functional Neurological disorders (FND)",
-"Motor Neurone Disease",
-"Traumatic brain injury",
-"Hyperkinetic Movement Disorders",
-"Sensory symptoms",
-"Review of Phase 1 kidney anatomy and renal physiology",
-"Fluid balance",
-"Penile cancer and Erectile dysfunction",
-"Bladder Cancer",
-"Kidney Cancer",
-"Prostate Cancer, Prostate Specific Antigen (PSA) and Advanced Prostate Cancer",
-"Testicular cancer",
-"Systemic treatment of cancer",
-"Chronic Kidney Disease (CKD)",
-"Lower Urinary Tract Syndrome (LUTS)",
-"Stone Disease and Obstruction",
-"Mens Health",
-"Glomerular disease",
-"Acute Kidney Injury (AKI)",
-"Urinary Tract Infection (UTI) and pyelonephritis",
-"Reconstructive Urology",
-"Liver disease",
-"Hepatitis",
-"Infection of the gastrointestinal and liver systems",
-"Gastrointestinal bleeding",
-"Pathology of gastrointestinal tumours",
-"Gastrointestinal obstruction",
-"Pathology of Gastritis, Malabsorption and Ulceration",
-"Coeliac disease",
-"Peptic ulcer disease",
-"Gall stones",
-"Inflammatory Bowel Disease (IBD)",
-"Functional gut disorders",
-"Peritonitis",
-"Ascites",
-"Polypharmacy and Holistic care",
-"Child health surveillance and vaccinations",
-"TB and Homeless health",
-"Stroke",
-"COPD",
-"Diabetes",
-"Palpitations",
-"Eating Disorders",
-"Lower urinary tract symptoms",
-"Liver disease, Hepatitis and Sexual health",
-"ILA 11 - Pathology",
-"ILA 12 - Immunology & Pharmacology",
-"ILA 13 - Microbiology",
-"ILA 14 - Endocrinology",
-"ILA 15 - Cardiology & Neurology",
-"ILA 16 - Renal & Urology",
-]
-
-def normalize(text: str) -> str:
-    """Strip bullets, punctuation, extra spaces, and lowercase for fuzzy comparison."""
-    text = re.sub(r'^[●•o\-\s]+', '', text)
-    text = re.sub(r'[^\w\s]', '', text)
-    text = re.sub(r'\s+', ' ', text)
-    return text.strip().lower()
-
-_normalized_canonical = {normalize(s): s for s in CANONICAL_SUBTOPICS}
-
-def validate_subtopics(extracted: list) -> list:
-    """Return only extracted subtopics that match a canonical entry, using canonical spelling."""
-    norm_keys = list(_normalized_canonical.keys())
-    validated = []
-    for subtopic in extracted:
-        key = normalize(subtopic)
-        matches = get_close_matches(key, norm_keys, n=1, cutoff=0.85)
-        if matches:
-            validated.append(_normalized_canonical[matches[0]])
-        else:
-            print(f"  [SKIPPED] No canonical match for: {subtopic!r}")
-    return validated
-
-BLOCK_HEADERS = {
-    "pathology",
-    "immunology",
-    "pharmacology and prescribing",
-    "microbiology",
-    "haematology",
-    "public health and population health science",
-    "respiratory medicine",
-    "musculoskeletal medicine msk",
-    "diabetes mellitus and general endocrinology",
-    "general endocrinology",
-    "cardiovascular medicine",
-    "neurology",
-    "urology and renal medicine",
-    "gastrointestinal and hepatic medicine",
-    "teaching theme phase 2a early years gp eygp programme",
-    "teaching theme phase 2a ila programme",
-}
-
-def extract_subtopics(syllabus: str) -> list:
-    # 1. Clean lines
-    lines = []
-    for line in syllabus.splitlines():
-        line = line.strip()
-        if (not line
-                or line in ["●", "o"]
-                or line.startswith("Dr NR Chapman")
-                or re.match(r"^Page \d+", line)):
-            continue
-        lines.append(line)
-
-    # 2. Merge continuation lines (non-bullet line following a non-terminated line)
-    merged = []
-    i = 0
-    while i < len(lines):
-        line = lines[i]
-        
-        # Absorb next line if current doesn't end a sentence, next isn't a bullet, 
-        # AND next line doesn't start with a capital letter (which indicates a heading)
-        while (i + 1 < len(lines)
-               and not line.endswith((".", ":", "?", "!"))
-               and not lines[i + 1].startswith("●")
-               and not lines[i + 1].startswith("o ")
-               and not re.match(r"^\d+\)", lines[i + 1])
-               and not lines[i + 1][0].isupper()):  # <-- ADD THIS LINE
-            i += 1
-            line = line + " " + lines[i]
-        merged.append(line)
-        i += 1
-
-    # 3. Extract subtopics using look-ahead:
-    #    A line is a subtopic if it's not a bullet and the *next* line is a bullet
-    subtopics = []
-    for i, line in enumerate(merged):
-        if line.startswith("●") or line.startswith("o "):
-            continue
-        if normalize(line) in BLOCK_HEADERS:
-            continue
-        # Look ahead: is the next non-empty line a bullet?
-        for j in range(i + 1, min(i + 3, len(merged))):
-            if merged[j].startswith("●") or merged[j].startswith("o "):
-                subtopics.append(line)
-                break
-
-    return subtopics
-
-# This will return clean, combined sentences like:
-# ['Apply theoretical frameworks of sociology to explain the varied responses of individuals, groups and societies to disease.', 
-#  'Explain sociological factors that contribute to illness, the course of the disease and the success of treatment − including issues relating to health inequalities...']
+    return json.dumps(selected, indent=2) if selected else "[]"
 
 
-VALID_SUBTOPICS = validate_subtopics(extract_subtopics(SYLLABUS))
+# ── PROMPTS ───────────────────────────────────────────────────────────────────
 
-KNOWN_TOPICS = [
-    "Pathology", "Immunology", "Pharmacology and Prescribing", "Microbiology",
-    "Haematology", "Public Health and Population Health Science", "Respiratory Medicine",
-    "Musculoskeletal Medicine (MSK)", "Diabetes Mellitus and General Endocrinology",
-    "General Endocrinology", "Cardiovascular Medicine", "Neurology",
-    "Urology and Renal Medicine", "Gastrointestinal and Hepatic Medicine",
-    "Teaching Theme – Phase 2a Early Years GP (EYGP) Programme",
-    "Teaching Theme – Phase 2a ILA Programme"
-]
-
-def get_syllabus_data(syllabus: str, valid_subtopics: list) -> dict:
-    """Parses the syllabus and maps each valid subtopic to its specific topic and bullet points."""
-    lines = []
-    for line in syllabus.splitlines():
-        line = line.strip()
-        if (not line or line in ["●", "o"] or line.startswith("Dr NR Chapman") or re.match(r"^Page \d+", line)):
-            continue
-        lines.append(line)
-
-    merged = []
-    i = 0
-    while i < len(lines):
-        line = lines[i]
-        while (i + 1 < len(lines) and not line.endswith((".", ":", "?", "!"))
-               and not lines[i + 1].startswith("●") and not lines[i + 1].startswith("o ")
-               and not re.match(r"^\d+\)", lines[i + 1]) and not lines[i + 1][0].isupper()):
-            i += 1
-            line += " " + lines[i]
-        merged.append(line)
-        i += 1
-
-    data = {subtopic: {"topic": "General", "bullets": []} for subtopic in valid_subtopics}
-    current_topic = "General"
-    
-    norm_valid = {normalize(s): s for s in valid_subtopics}
-    norm_topics = {normalize(t): t for t in KNOWN_TOPICS}
-
-    current_subtopic = None
-    for line in merged:
-        norm_line = normalize(line)
-        if norm_line in norm_topics:
-            current_topic = norm_topics[norm_line]
-            current_subtopic = None
-            continue
-            
-        if line.startswith("●") or line.startswith("o "):
-            if current_subtopic:
-                data[current_subtopic]["bullets"].append(line)
-        else:
-            if norm_line in norm_valid:
-                current_subtopic = norm_valid[norm_line]
-                data[current_subtopic]["topic"] = current_topic
-            else:
-                current_subtopic = None
-    manual_topic_overrides = { 
-        "Describe how immunological processes develop and become manifest and the consequences for the major organ systems detailed in Phase 2a": "Immunology"
-    }
-    for sub, correct_topic in manual_topic_overrides.items():
-        if sub in data:
-            data[sub]["topic"] = correct_topic
-
-    return data
-
-# Initialize the new data structure
-SYLLABUS_DATA = get_syllabus_data(SYLLABUS, VALID_SUBTOPICS)
-
-# ── PROMPTS ────────────────────────────────────────────────────────────────────
-subtopics_for_prompt = '", "'.join(VALID_SUBTOPICS)
-
-# 1. The base instructions (Updated for SAQs)
 BASE_SYSTEM_PROMPT = """
 You are a medical examination question writer for a UK medical school.
 Your sole purpose is to generate high-quality Short Answer Questions (SAQs) 
@@ -1337,25 +1162,24 @@ for first-year medical students (Phase 1).
 
 RULES YOU MUST NEVER BREAK:
 - SECTION STRUCTURE: Questions must be grouped into "sections." Each section represents ONE clinical scenario (`case_context`) focusing on one main topic.
-- QUESTION COUNT & MARKS: Each section must contain 4 to 6 linked questions. The total marks for these questions within a single section MUST add up to exactly 10.
+- QUESTION COUNT & MARKS: Each section must contain 4 to 6 linked questions. The total marks for all questions within a single section MUST add up to exactly 10.
 - DIFFICULTY & SCOPE: Target 1st-year UK medical students. You MUST test NORMAL anatomy, physiology, and basic sciences. Do NOT test on pathological processes, clinical investigations, diagnoses, or pharmacological management.
-- CLINICAL FRAMING: Exam questions MUST be framed in a clinical context. Use a clinical scenario (e.g., a patient presenting with a visual defect or nerve injury) as the `case_context`, but the questions must ask about the *normal* underlying anatomy/physiology (e.g., identifying the specific anatomical location of the lesion in the normal pathway).
+- CLINICAL FRAMING: Questions MUST be framed in a clinical context using a clinical scenario as the `case_context`, but the questions must ask about the *normal* underlying anatomy/physiology.
 - GP SESSIONS EXCEPTION: The only exception to the strictly 'normal' rule is for objectives explicitly labeled as "Early Years GP sessions". For these, you may test the specific clinical or systemic learning objectives provided.
 - ACCEPTABLE ANSWERS: Provide an exhaustive list of acceptable short answers (usually a few words) for the mark scheme.
-- CONTEXT: The first question in a section sets the `case_context`. Subsequent questions use the exact same `case_context`, but can introduce new clinical developments using the `additional_context` field to test further normal pathways.
-- SUBTOPICS: You must assign a specific `subtopic` to each individual question based on the syllabus objectives, and include this subtopic at the start of the `feedback` field.
-- NO PLAGIARISM: Do NOT use the clinical scenarios, diagnoses, or specific subtopics shown in the EXEMPLAR QUESTIONS. The exemplars are provided strictly for format and tone. You must invent completely new scenarios based ONLY on the provided SYLLABUS OBJECTIVES.
+- CONTEXT: The first question in a section sets the `case_context`. Subsequent questions share the same `case_context` but may introduce new developments via `additional_context`.
+- SUBTOPICS: You must assign a specific `subtopic` to each individual question, chosen exactly from the AVAILABLE SUBTOPICS list in the user prompt. Include the subtopic at the start of the `feedback` field.
+- NO PLAGIARISM: Do NOT use the clinical scenarios or subtopics shown in the EXEMPLAR QUESTIONS. Invent completely new scenarios based ONLY on the provided SYLLABUS OBJECTIVES.
 - When a question requires blood results, include reference ranges in brackets.
 - You must return ONLY valid JSON. No preamble, no explanation, no markdown code fences. Just the raw JSON array.
 """
 
-# 2. The required JSON structure (Updated to match Phase 1 / Year 1 format)
 JSON_OUTPUT_FORMAT = """
 OUTPUT FORMAT — return exactly this JSON structure as a flat array of objects:
 [
   {
-    "topic": "Neuroscience and Senses",
-    "subtopic": "Visual Pathways - Anatomy",
+    "topic": "E. Neuroscience",
+    "subtopic": "Neuroanatomy",
     "case_context": "A 55-year-old woman presents to her GP complaining of bumping into door frames on her outer sides. Visual field testing reveals a bitemporal hemianopia. An MRI scan shows a mass compressing a structure at the base of the brain.",
     "additional_context": "",
     "question": "Name the specific anatomical structure in the normal visual pathway where crossing nasal retinal fibres are located, which is most likely compressed in this patient.",
@@ -1364,11 +1188,11 @@ OUTPUT FORMAT — return exactly this JSON structure as a flat array of objects:
       "Optic chiasm",
       "Optic chiasma"
     ],
-    "feedback": "[Subtopic: Visual Pathways - Anatomy] The optic chiasm is the location where the nasal retinal fibres (responsible for the temporal visual fields) decussate. Compression here classically causes a bitemporal hemianopia."
+    "feedback": "[Subtopic: Neuroanatomy] The optic chiasm is the location where the nasal retinal fibres (responsible for the temporal visual fields) decussate. Compression here classically causes a bitemporal hemianopia."
   },
   {
-    "topic": "Neuroscience and Senses",
-    "subtopic": "Visual Cortex - Physiology",
+    "topic": "E. Neuroscience",
+    "subtopic": "Neurophysiology",
     "case_context": "A 55-year-old woman presents to her GP complaining of bumping into door frames on her outer sides. Visual field testing reveals a bitemporal hemianopia. An MRI scan shows a mass compressing a structure at the base of the brain.",
     "additional_context": "The visual pathway eventually terminates in the cerebral cortex to process conscious vision.",
     "question": "State the lobe of the cerebrum that contains the primary visual cortex.",
@@ -1377,98 +1201,96 @@ OUTPUT FORMAT — return exactly this JSON structure as a flat array of objects:
       "Occipital lobe",
       "Occipital"
     ],
-    "feedback": "[Subtopic: Visual Cortex - Physiology] The primary visual cortex (V1) is located at the posterior pole of the occipital lobe, highly concentrated along the calcarine sulcus."
+    "feedback": "[Subtopic: Neurophysiology] The primary visual cortex (V1) is located at the posterior pole of the occipital lobe, concentrated along the calcarine sulcus."
   }
 ]
 """
 
-# 3. The Builder Function (Updated to focus on Year 1 requirements)
-def build_user_prompt(topic: str, subtopics: list, syllabus_objectives: list, num_sections: int = 1) -> str:
+
+def build_user_prompt(topic: str, subtopics: list, syllabus_objectives: list,
+                      num_sections: int = 1) -> str:
     bullet_text = "\n".join(syllabus_objectives) if syllabus_objectives else "No specific objectives provided."
-    subtopics_text = "\n".join([f"- {st}" for st in subtopics]) if subtopics else "No subtopics provided."
-    
+    subtopics_text = "\n".join(f"- {st}" for st in subtopics) if subtopics else "No subtopics provided."
+
     return f"""Generate {num_sections} SAQ section(s) on the topic: {topic}
 
-AVAILABLE SUBTOPICS (You MUST choose from these for each question):
+AVAILABLE SUBTOPICS (You MUST choose from these for each question's "subtopic" field):
 {subtopics_text}
 
-SYLLABUS OBJECTIVES FOR THIS TOPIC:
+SYLLABUS OBJECTIVES FOR THIS TOPIC (all bullet points to draw questions from):
 {bullet_text}
 
 Requirements:
 - Create {num_sections} section(s). Each section must be based on a single clinical scenario (`case_context`).
-- Each section must contain 4-6 questions (e.g., Q1 to Q5).
-- The marks for the questions in a single section MUST add up to exactly 10.
-- Ensure the questions test different learning objectives from the syllabus provided above.
-- Vary what is being asked across the section, focusing heavily on Phase 1 concepts (e.g., anatomical structures, normal physiological mechanisms, basic biochemistry, or specific Early Years GP objectives).
+- Each section must contain 4-6 questions.
+- The marks for ALL questions within a single section MUST add up to exactly 10.
+- Ensure questions span different syllabus objectives and different subtopics listed above.
+- Focus on NORMAL physiology, anatomy, biochemistry, or histology — use clinical framing only as context.
 - The "topic" field must be exactly: "{topic}"
-- YOU MUST INCLUDE A "subtopic" KEY IN EVERY JSON OBJECT. The value MUST be chosen exactly from the 'AVAILABLE SUBTOPICS' list above.
-- The feedback must explicitly state the chosen subtopic at the beginning (e.g., "[Subtopic: <Chosen Subtopic>] Feedback text...").
+- YOU MUST INCLUDE A "subtopic" KEY IN EVERY JSON OBJECT. The value MUST be chosen exactly from the AVAILABLE SUBTOPICS list above.
+- The feedback must start with the chosen subtopic in brackets, e.g. "[Subtopic: <Chosen Subtopic>] Feedback text..."
 - Return the generated questions in the exact JSON array format specified. Nothing else."""
 
-# ── CORE FUNCTIONS ─────────────────────────────────────────────────────────────
 
-def load_existing_bank(filepath: str) -> list:
-    """Load existing questions from the JSON file, or return empty list."""
-    if os.path.exists(filepath):
-        try:
-            # Check if file is empty
-            if os.path.getsize(filepath) == 0:
-                return []
-                
-            with open(filepath, "r") as f:
-                return json.load(f)
-        except (json.JSONDecodeError, ValueError):
-            # If the file is corrupted or not valid JSON, return empty list
-            print(f"Note: {filepath} was empty or corrupted. Starting a fresh bank.")
-            return []
-    return []
+# ── BANK I/O ──────────────────────────────────────────────────────────────────
 
 CSV_FIELDS = [
     'id', 'topic', 'subtopic', 'case_context',
     'additional_context', 'question', 'marks',
-    'acceptable_answers', 'feedback', 'generated_at'
+    'acceptable_answers', 'feedback', 'generated_at',
 ]
 
-def save_bank(filepath, bank):
-    # Save JSON (unchanged behaviour)
+
+def load_existing_bank(filepath: str) -> list:
+    if os.path.exists(filepath):
+        try:
+            if os.path.getsize(filepath) == 0:
+                return []
+            with open(filepath, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            print(f"Note: {filepath} was empty or corrupted. Starting fresh.")
+            return []
+    return []
+
+
+def save_bank(filepath: str, bank: list) -> None:
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(bank, f, indent=2, ensure_ascii=False)
 
-    # Also write CSV — mirrors what the Node.js script was doing
-    csv_path = CSV_OUTPUT_FILE
-    with open(csv_path, 'w', newline='', encoding='utf-8') as f:
+    with open(CSV_OUTPUT_FILE, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=CSV_FIELDS, extrasaction='ignore')
         writer.writeheader()
         for item in bank:
             row = dict(item)
-            # Supabase expects JSON arrays as strings in CSV
             if isinstance(row.get('acceptable_answers'), list):
                 row['acceptable_answers'] = json.dumps(row['acceptable_answers'])
             writer.writerow(row)
 
     print(f"  💾 JSON saved → {filepath}")
-    print(f"  📄 CSV saved  → {csv_path}")
+    print(f"  📄 CSV saved  → {CSV_OUTPUT_FILE}")
 
 
-def generate_questions(topic, subtopics, bullets, num_sections, model_name, api_state, is_first_call=False):
+# ── GENERATION ────────────────────────────────────────────────────────────────
+
+def generate_questions(topic: str, subtopics: list, bullets: list, num_sections: int,
+                       model_name: str, api_state: APIState,
+                       is_first_call: bool = False) -> list:
     client = genai.Client(api_key=API_KEYS[api_state.key_idx])
-    
+
     user_prompt = build_user_prompt(topic, subtopics, bullets, num_sections)
-    
-    # Fetch dynamic examples and build the final system prompt
     examples_text = get_prompt_examples(topic)
     dynamic_system_prompt = (
-        BASE_SYSTEM_PROMPT + 
-        "\nEXEMPLAR QUESTIONS (learn format, tone, stem length):\n\n" + 
-        examples_text + 
-        JSON_OUTPUT_FORMAT
+        BASE_SYSTEM_PROMPT
+        + "\nEXEMPLAR QUESTIONS (learn format, tone, stem length):\n\n"
+        + examples_text
+        + JSON_OUTPUT_FORMAT
     )
-    
+
     if is_first_call:
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("🔍 DEBUG: FIRST API CALL PAYLOAD")
-        print("="*80)
+        print("=" * 80)
         print(f"MODEL: {model_name}")
         print("-" * 80)
         print("SYSTEM INSTRUCTION:")
@@ -1476,180 +1298,156 @@ def generate_questions(topic, subtopics, bullets, num_sections, model_name, api_
         print("-" * 80)
         print("USER PROMPT:")
         print(user_prompt)
-        print("="*80 + "\n")
+        print("=" * 80 + "\n")
 
     response = client.models.generate_content(
         model=model_name,
         contents=user_prompt,
         config={
             "system_instruction": dynamic_system_prompt,
-            "response_mime_type": "application/json" 
-        }
+            "response_mime_type": "application/json",
+        },
     )
-    
+
     raw = response.text.strip()
     clean_json = re.sub(r'^```json|```$', '', raw, flags=re.MULTILINE).strip()
 
     try:
         questions = json.loads(clean_json)
-        
-        # Generate a unique 8-character ID for this specific section/batch
         section_id = f"SAQ_{uuid.uuid4().hex[:8].upper()}"
-        
         for index, q in enumerate(questions, start=1):
-            # Programmatically assign the ID (e.g., SAQ_A1B2C3D4_Q1, SAQ_A1B2C3D4_Q2)
             q["id"] = f"{section_id}_Q{index}"
-            
             q["generated_at"] = datetime.now().isoformat()
             if "subtopic" not in q:
                 q["subtopic"] = "Unknown Subtopic"
             if "topic" not in q:
                 q["topic"] = topic
-                
         return questions
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON for topic '{topic}': {e}")
         return []
 
-def display_questions(questions: list):
-    """Print questions to screen in a readable format."""
+
+# ── DISPLAY ───────────────────────────────────────────────────────────────────
+
+def display_questions(questions: list) -> None:
     if not questions:
         print("No questions to display.")
         return
-
     for i, q in enumerate(questions, 1):
-        print(f"\n{'='*60}")
-        print(f"Question {i} | Topic: {q.get('topic', 'N/A')} | Subtopic: {q.get('subtopic', 'N/A')}")
-        print(f"{'='*60}")
-        
-        # SAQs have case_context
+        print(f"\n{'=' * 60}")
+        print(f"Q{i} | Topic: {q.get('topic', 'N/A')} | Subtopic: {q.get('subtopic', 'N/A')}")
+        print(f"{'=' * 60}")
         if q.get('case_context'):
-            print(f"Case Context: {q['case_context']}")
+            print(f"Case: {q['case_context']}")
         if q.get('additional_context'):
-            print(f"Additional Context: {q['additional_context']}")
-            
-        print(f"\nQuestion: {q.get('question', '')} ({q.get('marks', 0)} marks)\n")
-        
+            print(f"Additional: {q['additional_context']}")
+        print(f"\nQuestion: {q.get('question', '')} ({q.get('marks', 0)} mark(s))\n")
         print("Acceptable answers:")
         for ans in q.get('acceptable_answers', []):
             print(f"  - {ans}")
-            
         print(f"\nFeedback: {q.get('feedback', '')}")
 
 
+def show_bank_summary(bank: list) -> None:
+    counts: dict = {}
+    for q in bank:
+        t = q.get("topic", "Unknown")
+        counts[t] = counts.get(t, 0) + 1
 
-# ── MAIN ───────────────────────────────────────────────────────────────────────
+    print("\nCurrent bank coverage (by topic):")
+    for topic in KNOWN_TOPICS:
+        count = counts.get(topic, 0)
+        print(f"  {topic:<60} {'█' * count} {count}")
+    print()
+
+
+# ── SLEEP HELPER ──────────────────────────────────────────────────────────────
 
 def get_seconds_until_1am() -> float:
-    """Calculates the exact number of seconds from now until the next 1:00 AM."""
     now = datetime.now()
     target = now.replace(hour=1, minute=0, second=0, microsecond=0)
-    
     if now >= target:
         target += timedelta(days=1)
-        
     return (target - now).total_seconds()
 
-def show_bank_summary(bank: list):
-    """Show how many questions exist per subtopic."""
-    counts = {}
-    for q in bank:
-        subtopic = q.get("subtopic", "Unknown")
-        counts[subtopic] = counts.get(subtopic, 0) + 1
-    
-    print("\nCurrent bank coverage:")
-    for subtopic in VALID_SUBTOPICS:
-        count = counts.get(subtopic, 0)
-        bar = "█" * count
-        print(f"  {subtopic:<50} {bar} {count}")
-    print()
-    
-def main(verbose=False, selected_topics=None):
+
+# ── MAIN ──────────────────────────────────────────────────────────────────────
+
+def main(verbose: bool = False, selected_topics: list = None) -> None:
     state = APIState()
-    print("Starting automated question generation loop...")
-    # Load the bank once at the start
+    print("Starting automated SAQ generation loop...")
+
     bank = load_existing_bank(OUTPUT_FILE)
-    
-    # 1. SHOW THE FULL SUMMARY DASHBOARD AT STARTUP
+
     if bank:
         show_bank_summary(bank)
     else:
         print("\nBank is currently empty. Starting fresh!")
 
-    # 2. EXTRACT UNIQUE TOPICS
-    # Since we now generate by topic, we need a list of unique topics from our data
-    # AFTER:
-    unique_topics = []
+    # Build ordered unique topic list from SYLLABUS_DATA (preserves syllabus order).
+    unique_topics: list = []
     for sub in VALID_SUBTOPICS:
         t = SYLLABUS_DATA[sub]["topic"]
         if t not in unique_topics:
             unique_topics.append(t)
 
     if selected_topics:
-        # Case-insensitive match so the user doesn't need to type perfectly
         selected_lower = {t.lower() for t in selected_topics}
         filtered = [t for t in unique_topics if t.lower() in selected_lower]
         unrecognised = selected_lower - {t.lower() for t in filtered}
         if unrecognised:
-            print(f"\n⚠️  WARNING: These topics were not recognised and will be skipped: {unrecognised}")
-            print(f"   Valid topics are: {unique_topics}\n")
+            print(f"\n⚠️  WARNING: Unrecognised topics (will be skipped): {unrecognised}")
+            print(f"   Valid topics: {unique_topics}\n")
         if not filtered:
             print("❌ No valid topics selected. Exiting.")
             return
         unique_topics = filtered
-        print(f"\n✅ Generating questions only for: {unique_topics}")
+        print(f"\n✅ Generating only for: {unique_topics}")
 
-    # 3. FIND WHERE TO RESUME 
-    # Count how many questions exist per TOPIC to find the weakest area
+    # Resume at the topic with the fewest questions.
     topic_counts = {t: 0 for t in unique_topics}
     for q in bank:
         q_topic = q.get("topic", "Unknown")
         if q_topic in topic_counts:
             topic_counts[q_topic] += 1
-            
-    # Get the topic with the minimum count, then find its index
+
     starting_topic = min(topic_counts, key=topic_counts.get)
     topic_idx = unique_topics.index(starting_topic)
-    
-    print(f"\nResuming script at Topic: '{starting_topic}' (Currently has {topic_counts[starting_topic]} questions)")
-    
-    
-    HIGH_YIELD_TOPICS = {
-    }
+    print(f"\nResuming at: '{starting_topic}' ({topic_counts[starting_topic]} questions so far)")
+
+    HIGH_YIELD_TOPICS: set = set()
     first_run = True
 
     while True:
         current_model = state.models[state.model_idx]
         topic = unique_topics[topic_idx]
-        
-        # 4. GATHER ALL SUBTOPICS AND BULLETS FOR THIS TOPIC
-        topic_subtopics = [sub for sub in VALID_SUBTOPICS if SYLLABUS_DATA[sub]["topic"] == topic]
-        topic_bullets = []
+
+        # Gather all subtopics and every bullet point for this topic.
+        topic_subtopics = [sub for sub in VALID_SUBTOPICS
+                           if SYLLABUS_DATA[sub]["topic"] == topic]
+        topic_bullets: list = []
         for sub in topic_subtopics:
             topic_bullets.extend(SYLLABUS_DATA[sub]["bullets"])
-        
-        # Determine how many SECTIONS to generate (1 section = 4 to 6 questions)
-        num_sections = 1 if topic in HIGH_YIELD_TOPICS else 1
-        
-        print(f"\n" + "="*60)
+
+        num_sections = 2 if topic in HIGH_YIELD_TOPICS else 1
+
+        print(f"\n{'=' * 60}")
         print(f"🎯 TOPIC: {topic}")
-        print(f"📚 Subtopics included: {len(topic_subtopics)}")
-        print(f"\nGenerating {num_sections} section(s) on: {topic}")
-        print(f"Using model: {current_model}")
-        print("="*60)
-        
+        print(f"📚 Subtopics: {len(topic_subtopics)}  |  Bullets: {len(topic_bullets)}")
+        print(f"Generating {num_sections} section(s) using model: {current_model}")
+        print("=" * 60)
+
         try:
-            # 5. CALL GENERATOR WITH NEW PARAMETERS
             questions = generate_questions(
                 topic=topic,
-                subtopics=topic_subtopics,  # Changed from 'subtopic'
-                bullets=topic_bullets, 
-                num_sections=num_sections,  # Changed from 'num_questions'
-                model_name=current_model, 
+                subtopics=topic_subtopics,
+                bullets=topic_bullets,
+                num_sections=num_sections,
+                model_name=current_model,
                 api_state=state,
-                is_first_call=first_run 
+                is_first_call=first_run,
             )
-
             first_run = False
 
             if questions:
@@ -1658,77 +1456,67 @@ def main(verbose=False, selected_topics=None):
                 bank.extend(questions)
                 save_bank(OUTPUT_FILE, bank)
 
-                current_count = sum(1 for q in bank if q.get("topic", "") == topic)
-                print(f"✓ Added {len(questions)} individual questions. Total for '{topic}' is now {current_count}. Total in bank: {len(bank)}")
-                
-                # Print a quick summary of which subtopics the AI actually chose to use
-                generated_subtopics = set(q.get("subtopic") for q in questions if q.get("subtopic"))
-                print(f"  Subtopics hit in this batch: {generated_subtopics}")
+                new_count = sum(1 for q in bank if q.get("topic") == topic)
+                print(f"✓ Added {len(questions)} questions. "
+                      f"Total for '{topic}': {new_count}. "
+                      f"Grand total: {len(bank)}")
+                generated_subtopics = {q.get("subtopic") for q in questions if q.get("subtopic")}
+                print(f"  Subtopics used: {generated_subtopics}")
             else:
                 print("No questions generated this round (possible JSON error).")
-                
-            # SUCCESS: Move to the next TOPIC
+
+            # Advance to next topic.
             topic_idx = (topic_idx + 1) % len(unique_topics)
-            
-            # Brief pause to avoid hammering the API
-            print("Sleeping for 10 seconds before the next request...")
+            print("Sleeping 10 seconds before next request...")
             time.sleep(10)
-            
+
         except Exception as e:
             first_run = False
             error_msg = str(e).lower()
             print(f"\nAPI error: {e}")
-            
-            # Check if the error is due to hitting the quota/exhaustion
+
             if "exhausted" in error_msg or "quota" in error_msg or "429" in error_msg:
                 print(f"Key {state.key_idx + 1} exhausted.")
-                
-                # Move to the next key
                 state.key_idx += 1
-                
-                # Check if ALL keys are exhausted
+
                 if state.key_idx >= len(API_KEYS):
                     print("All API keys exhausted for current model.")
-                    
-                    # Try switching to the next model and reset keys to the start
                     state.model_idx += 1
-                    state.key_idx = 0 
-                    
-                    # If we've run out of models AND keys
+                    state.key_idx = 0
+
                     if state.model_idx >= len(state.models):
-                        sleep_seconds = get_seconds_until_1am()
-                        resume_time = datetime.now() + timedelta(seconds=sleep_seconds)
-                        
-                        print(f"Everything exhausted. Sleeping until 1AM: {resume_time}")
-                        time.sleep(sleep_seconds)
-                        
-                        # RESET EVERYTHING AT 1AM
+                        sleep_secs = get_seconds_until_1am()
+                        resume = datetime.now() + timedelta(seconds=sleep_secs)
+                        print(f"Everything exhausted. Sleeping until 1 AM: {resume}")
+                        time.sleep(sleep_secs)
                         state.model_idx = 0
                         state.key_idx = 0
+                    else:
+                        print(f"Switching to model: {state.models[state.model_idx]}")
                 else:
-                    print(f"Switching to next API key (Index {state.key_idx})...")
+                    print(f"Switching to API key index {state.key_idx}...")
             else:
-                print("Standard error, retrying in 10s...")
+                print("Standard error — retrying in 10 s...")
                 time.sleep(10)
             continue
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate SAQ question bank.")
-    # AFTER:
     parser.add_argument(
         "--verbose", "-v",
         action="store_true",
-        help="Print each generated question to the console."
+        help="Print each generated question to the console.",
     )
     parser.add_argument(
         "--topics", "-t",
         nargs="+",
         metavar="TOPIC",
         help=(
-            "One or more topic names to generate questions for. "
-            "Use quotes for multi-word topics. "
-            "E.g.: --topics Neurology \"Cardiovascular Medicine\""
-        )
+            'One or more topic names to generate for. '
+            'Use quotes for multi-word topics. '
+            'E.g.: --topics "E. Neuroscience" "B. Cardiovascular system"'
+        ),
     )
     args = parser.parse_args()
     main(verbose=args.verbose, selected_topics=args.topics)
