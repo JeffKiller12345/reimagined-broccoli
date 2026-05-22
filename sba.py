@@ -84,13 +84,13 @@ Energy metabolism / Biochemistry
 ● Sodium homeostasis 
 Embryo development from fertilisation to week 9
 ● Embryo development from fertilisation to week 4 
-○ Blastocyst differentiation into embryoblast and trophoblast 
-○ Development of the bilaminar and trilaminar disc 
-○ Gastrulation and neurulation 
+● Blastocyst differentiation into embryoblast and trophoblast 
+● Development of the bilaminar and trilaminar disc 
+● Gastrulation and neurulation 
 ● Embryo development from weeks 4-9 
-○ Embryo folding 
-○ Formation of the primitive gut and body cavities 
-○ Organogenesis 
+● Embryo folding 
+● Formation of the primitive gut and body cavities 
+● Organogenesis 
 Cell histology and their ultrastructural components
 ● Types of stains & their use/appearance 
 ● Cell ultrastructure - organelles, intracellular filaments 
@@ -109,19 +109,19 @@ Introduction to anatomical features of the human body
 ● Coronal, sagittal and transverse planes 
 ● Anatomical terminology 
 ● Musculoskeletal anatomy 
-○ Axial and appendicular skeleton 
-○ Joints, ligaments and tendons 
-○ Movements and muscles 
+● Axial and appendicular skeleton 
+● Joints, ligaments and tendons 
+● Movements and muscles 
 ● Nervous system 
-○ Organisation of the nervous system 
-○ Brain, brainstem and spinal cord 
-○ Cerebral ventricles and cerebrospinal fluid 
-○ Meninges 
-○ Blood supply to the brain 
-○ Autonomic nervous system (sympathetic, parasympathetic) 
-○ Cranial nerves overview 
-○ Spinal nerves overview 
-○ Dermatomes and myotomes  
+● Organisation of the nervous system 
+● Brain, brainstem and spinal cord 
+● Cerebral ventricles and cerebrospinal fluid 
+● Meninges 
+● Blood supply to the brain 
+● Autonomic nervous system (sympathetic, parasympathetic) 
+● Cranial nerves overview 
+● Spinal nerves overview 
+● Dermatomes and myotomes  
 ILA 1 - Cystic Fibrosis
 ● The processes of transcription (DNA to mRNA) and translation (mRNA to protein), including the roles of mRNA, tRNA, and ribosomes. 
 ● The primary, secondary, tertiary, and quaternary structure of proteins, the bonds that hold them together, and how mutations can alter protein function. 
@@ -203,90 +203,90 @@ ILA 2 - Myocardial Infarction
 C. Respiratory system  
 Physiological features of the respiratory system
 ● Function of the upper airways 
-○ Nose; external anatomy and vestibule 
-○ Nasal turbinates and meatus 
-○ Nasal functions 
-○ Paranasal sinuses (frontal, maxillary, ethmoidal, sphenoidal) 
-○ Pharynx; nasopharynx, oropharynx, [hypopharynx] 
-○ Eustachian tubes and their role and anatomy 
-○ Larynx; laryngeal functions, innervation, vagus nerve branches that are relevant 
-○ Recurrent laryngeal nerve anatomy and function (left and right are different!) 
+● Nose; external anatomy and vestibule 
+● Nasal turbinates and meatus 
+● Nasal functions 
+● Paranasal sinuses (frontal, maxillary, ethmoidal, sphenoidal) 
+● Pharynx; nasopharynx, oropharynx, [hypopharynx] 
+● Eustachian tubes and their role and anatomy 
+● Larynx; laryngeal functions, innervation, vagus nerve branches that are relevant 
+● Recurrent laryngeal nerve anatomy and function (left and right are different!) 
 ● General function of the lower airways; gas exchange 
-○ Thoracic cage 
-○ Rib articulation and movement 
-○ Surface anatomy; angle of Louis (a.k.a. sternal angle), larynx 
-○ Trachea, lung hilum 
-○ Main and lobar bronchi 
-○ Segmental branches 
-○ Terminal bronchiole, acinus 
-○ Respiratory bronchiole, the acinus 
-○ Alveolar ducts, alveoli 
-○ Pleura structure and function 
-○ Diaphragm 
-○ [Coronary Circulation] 
-○ Lung circulations, bronchial and pulmonary 
-○ Lung Innervation 
-○ Airway tone 
+● Thoracic cage 
+● Rib articulation and movement 
+● Surface anatomy; angle of Louis (a.k.a. sternal angle), larynx 
+● Trachea, lung hilum 
+● Main and lobar bronchi 
+● Segmental branches 
+● Terminal bronchiole, acinus 
+● Respiratory bronchiole, the acinus 
+● Alveolar ducts, alveoli 
+● Pleura structure and function 
+● Diaphragm 
+● [Coronary Circulation] 
+● Lung circulations, bronchial and pulmonary 
+● Lung Innervation 
+● Airway tone 
 ■ Bronchoconstriction vs. dilation 
 ■ Nicotinic and muscarinic receptors 
 ■ Sympathetic and parasympathetic stimulation 
 ● Poiseuille’s law in relation to the airways 
 ● Lung Physiology 1 
-○ Static lungs 
-○ Rib movement and the respiratory pump 
-○ Gas exchange, alveolar ventilation and alveolar perfusion 
-○ CO2 elimination, oxygenation, alveolar gas equation, A-aDO2, oxygen-Hb dissociation curve 
-○ Acid base [the lungs are important as acid base regulators] 
-○ Arterial blood gases 
-○ Respiratory acidosis 
+● Static lungs 
+● Rib movement and the respiratory pump 
+● Gas exchange, alveolar ventilation and alveolar perfusion 
+● CO2 elimination, oxygenation, alveolar gas equation, A-aDO2, oxygen-Hb dissociation curve 
+● Acid base [the lungs are important as acid base regulators] 
+● Arterial blood gases 
+● Respiratory acidosis 
 ● Lung Physiology 2 
-○ Differences between pulmonary and systemic circulations 
-○ Pulmonary haemodynamics 
-○ Hypoxia versus hypoxaemia 
-○ Causes of hypoxaemia 
-○ Ascent 
-○ Classification of diseases of the pulmonary circulation 
+● Differences between pulmonary and systemic circulations 
+● Pulmonary haemodynamics 
+● Hypoxia versus hypoxaemia 
+● Causes of hypoxaemia 
+● Ascent 
+● Classification of diseases of the pulmonary circulation 
 ● Lung Physiology 3; measured physiology values 
-○ Measurement of lung volumes 
-○ Measured values in patients 
-○ Forced expiration 
+● Measurement of lung volumes 
+● Measured values in patients 
+● Forced expiration 
 ■ Volume Time 
 ■ Flow Volume 
 ■ Peak Expiratory Flow 
-○ Transfer Estimates 
-○ Exhaled nitric oxide (FENO) 
-○ Oximetry for Sp02 measurement 
-○ Arterial blood gases 
-○ Predicted and abnormal values 
+● Transfer Estimates 
+● Exhaled nitric oxide (FENO) 
+● Oximetry for Sp02 measurement 
+● Arterial blood gases 
+● Predicted and abnormal values 
 ● Lung Physiology 4; control of breathing 
-○ CO2 elimination 
-○ Oxygenation 
-○ Acid base control 
+● CO2 elimination 
+● Oxygenation 
+● Acid base control 
 ■ Henderson-Hasselbach equation 
 ■ Respiratory acidosis/alkalosis 
-○ Respiration and control of breathing 
-○ Input and output signals 
-○ Breathing rhythm 
-○ Central pattern generator 
-○ Pontine and medullary respiratory sensory 
-○ Mechanical and chemical receptors 
-○ Respiratory drive 
-○ Alveolar recruitment 
-○ Inspiration and expiration 
-○ Chemoreceptors (central and peripheral) 
-○ Lung, airway and muscle receptors 
+● Respiration and control of breathing 
+● Input and output signals 
+● Breathing rhythm 
+● Central pattern generator 
+● Pontine and medullary respiratory sensory 
+● Mechanical and chemical receptors 
+● Respiratory drive 
+● Alveolar recruitment 
+● Inspiration and expiration 
+● Chemoreceptors (central and peripheral) 
+● Lung, airway and muscle receptors 
 ● Lung Physiology 5; respiratory failure 
-○ Normal arterial blood gases (ABGs) 
-○ Definitions used in respiratory failure 
-○ Examples of type I and II respiratory failure 
-○ Hypoxaemia 
-○ Hypercapnia 
-○ Oxygen treatment 
+● Normal arterial blood gases (ABGs) 
+● Definitions used in respiratory failure 
+● Examples of type I and II respiratory failure 
+● Hypoxaemia 
+● Hypercapnia 
+● Oxygen treatment 
 Immune features of the respiratory system
 ● Immune defence in the lung 
-○ Mechanisms – innate vs. adaptive immunity 
-○ Respiratory/alveolar epithelium 
-○ Mucus composition 
+● Mechanisms – innate vs. adaptive immunity 
+● Respiratory/alveolar epithelium 
+● Mucus composition 
 ● Acute inflammatory response 
 ● Role and functions of alveolar macrophages and neutrophils 
 ● Types of hypersensitivity and their characteristics (Gell and Coombs) 
@@ -338,9 +338,9 @@ Anatomical features of the respiratory system / thorax
 ● Nasal cavity, paranasal sinuses and palate 
 ● Oral cavity, salivary glands and pharynx 
 ● Anatomy of the neck 
-○ Bones and cartilages 
-○ Major vessels and nerves 
-○ Pharynx, larynx and thyroid gland 
+● Bones and cartilages 
+● Major vessels and nerves 
+● Pharynx, larynx and thyroid gland 
 ● Surface anatomy of the thorax 
 ● Major thoracic structures on a normal chest-X-ray and CT of the thorax 
 ● Muscles of the pectoral region and thoracic wall 
@@ -375,31 +375,31 @@ Physiological features of the gut
 ● Stages of defaecation 
 Physiological features of the liver, gallbladder and pancreas
 ● Liver storage 
-○ Fat soluble vitamins 
-○ Vitamins and iron storage 
+● Fat soluble vitamins 
+● Vitamins and iron storage 
 ● Liver detoxification 
-○ Xenobiotics (definition and examples) 
-○ Phase 1 and phase 2 detoxification reactions 
-○ Cytochrome P450 function 
+● Xenobiotics (definition and examples) 
+● Phase 1 and phase 2 detoxification reactions 
+● Cytochrome P450 function 
 ● Production of protein 
-○ Albumin – function, production, deficit 
-○ Clotting factors 
-○ Complement factors 
+● Albumin – function, production, deficit 
+● Clotting factors 
+● Complement factors 
 ● Fat metabolism 
-○ Energy reserves in the body 
-○ Differences between white and brown fat 
-○ Enzymes – lipoprotein lipase, hepatic lipase 
-○ Beta oxidation 
+● Energy reserves in the body 
+● Differences between white and brown fat 
+● Enzymes – lipoprotein lipase, hepatic lipase 
+● Beta oxidation 
 ● Nitrogen balance 
-○ Urea cycle 
-○ Glucose/alanine cycle 
+● Urea cycle 
+● Glucose/alanine cycle 
 ● Gallbladder 
-○ Production and contraction of bile 
-○ Bilirubin and enterohepatic secretion of bile salts 
+● Production and contraction of bile 
+● Bilirubin and enterohepatic secretion of bile salts 
 ● Exocrine pancreas 
-○ Phases of secretion 
-○ Secretion of bicarbonate 
-○ Control of secretion – stimulation and inhibition 
+● Phases of secretion 
+● Secretion of bicarbonate 
+● Control of secretion – stimulation and inhibition 
 Embryonic development of the gastrointestinal tract and liver
 ● Division of foregut/midgut/hindgut and their innervation and vascular supply 
 ● Development of the foregut and derivatives 
@@ -454,10 +454,10 @@ Neuroanatomy
 ● Parts of the ventricular system, and where the production and drainage of cerebrospinal fluid takes place 
 ● Functions of lobes, systems, gyri, structures and nuclei 
 ● Experimental designs in systems-level investigations 
-○ Effects of experimental manipulations on brain structure/activity 
-○ Effects of brain manipulations on behaviour/physiology/endocrinology 
-○ Increasing levels of specificity afforded by different experimental procedures 
-○ Concepts of methodological specificity can be used to critically evaluate experimental investigations 
+● Effects of experimental manipulations on brain structure/activity 
+● Effects of brain manipulations on behaviour/physiology/endocrinology 
+● Increasing levels of specificity afforded by different experimental procedures 
+● Concepts of methodological specificity can be used to critically evaluate experimental investigations 
 ● Histological types of human muscle 
 ● Muscle structure and function; innervation, fibre typing, muscle contraction 
 ● Pattern of innervation and fibre typing is altered in denervating disease 
@@ -848,7 +848,7 @@ Session 2 ‘Pregnancy’ (during IMMS block)
 ● Factors (e.g. past medical history, family history) which would make a pregnancy ‘higher risk’, and explain measures used to reduce these risks if available. 
 ● Dietary and lifestyle advice to a pregnant woman. 
 ● Routine antenatal care in the UK, including what happens in a routine midwife appointment and what scans / blood tests are routinely offered. 
-○ Additional tests offered to screen for and diagnose foetal genetic abnormalities. 
+● Additional tests offered to screen for and diagnose foetal genetic abnormalities. 
 ● Domestic abuse, possible risk factors / indicators, and the HARK screening tool. 
 Session 3 ‘Ischaemic heart disease / Health inequalities’ (during Cardiovascular block) 
 ● Principles of primary and secondary prevention, particularly in relation to cardiovascular disease 
@@ -1479,7 +1479,7 @@ def main():
     subtopic_idx = VALID_SUBTOPICS.index(starting_subtopic)
     
     print(f"\nResuming script at: '{starting_subtopic}' (Currently has {counts[starting_subtopic]} questions)")
-    models = ["gemini-3-flash-preview", "gemini-2.5-flash"]
+    models = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-2.5-flash"]
     current_model_idx = 0
     
     HIGH_YIELD_TOPICS = {
