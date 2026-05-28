@@ -1353,6 +1353,49 @@ def save_bank(filepath: str, bank: list):
     csv_path = os.path.splitext(filepath)[0] + ".csv"
     _bank_to_csv(bank, csv_path)
 
+def _extract_json_array(raw: str) -> list:
+    text = re.sub(r'```json\s*', '', raw, flags=re.IGNORECASE)
+    text = re.sub(r'```', '', text).strip()
+
+    start = text.find('[')
+    if start == -1:
+        raise ValueError("No JSON array found in response.")
+
+    depth = 0
+    end = -1
+    in_string = False
+    escape_next = False
+    for i, ch in enumerate(text[start:], start):
+        if escape_next:
+            escape_next = False
+            continue
+        if ch == '\\' and in_string:
+            escape_next = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+        if in_string:
+            continue
+        if ch == '[':
+            depth += 1
+        elif ch == ']':
+            depth -= 1
+            if depth == 0:
+                end = i + 1
+                break
+
+    if end == -1:
+        print("  [warn] Response appears truncated – attempting recovery.")
+        text = text[start:].rstrip().rstrip(',')
+        if not text.endswith('}'):
+            text += '"}'
+        text += ']'
+    else:
+        text = text[start:end]
+
+    text = re.sub(r',\s*([}\]])', r'\1', text)
+    return json.loads(text)
+
 def generate_questions(topic: str, subtopic: str, bullets: list, num_questions: int, model_name: str, is_first_call: bool = False) -> list:
     """Send the prompt to Gemini and return parsed questions."""
     client = genai.Client(api_key=API_KEYS[current_key_idx])
@@ -1391,22 +1434,37 @@ def generate_questions(topic: str, subtopic: str, bullets: list, num_questions: 
     )
     
     raw = response.text.strip()
-    clean_json = re.sub(r'^```json|```$', '', raw, flags=re.MULTILINE).strip()
 
-    try:
-        questions = json.loads(clean_json)
-        for q in questions:
-            q["generated_at"] = datetime.now().isoformat()
-            if "subtopic" not in q:
-                q["subtopic"] = subtopic
-            if "topic" not in q or q["topic"] == "Neurology": # Failsafe just in case
-                q["topic"] = topic
+    MAX_JSON_RETRIES = 2
+    for attempt in range(MAX_JSON_RETRIES + 1):
+        if attempt > 0:
+            print(f"  [retry {attempt}] Re-requesting from model...")
+            time.sleep(3)
+            response = client.models.generate_content(
+                model=model_name,
+                contents=user_prompt,
+                config={
+                    "system_instruction": dynamic_system_prompt,
+                    "response_mime_type": "application/json"
+                }
+            )
+            raw = response.text.strip()
 
-        return questions
-        
-    except json.JSONDecodeError as e:
-        print(f"Error parsing JSON for {subtopic}: {e}")
-        return []
+        try:
+            questions = _extract_json_array(raw)
+            for q in questions:
+                q["generated_at"] = datetime.now().isoformat()
+                if "subtopic" not in q:
+                    q["subtopic"] = subtopic
+                if "topic" not in q or q["topic"] == "Neurology":
+                    q["topic"] = topic
+            return questions
+
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"  [attempt {attempt+1}] JSON parse failed for {subtopic}: {e}")
+            print(f"  [raw snippet] {raw[:300]!r}")
+            if attempt == MAX_JSON_RETRIES:
+                return []
 
 def display_questions(questions: list):
     """Print questions to screen in a readable format."""
